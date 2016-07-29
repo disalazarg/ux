@@ -4,7 +4,6 @@ class CreateContacts < ActiveRecord::Migration
       t.references :school, index: true, foreign_key: true
       t.string :email
       t.string :name
-      t.string :rbd
       t.string :slug
 
       t.timestamps null: false
