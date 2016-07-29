@@ -72,6 +72,12 @@ seed(Region,   "regiones")
 seed(Province, "provincias")
 seed(District, "comunas")
 
+Statute.create([
+  {name: "Publico"},
+  {name: "Subvencionado"},
+  {name: "Privado"}
+])
+
 ###
 # Dev-only fakes
 ###
