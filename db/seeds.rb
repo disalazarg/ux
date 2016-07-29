@@ -49,8 +49,8 @@ end
 # Actual code
 ###
 def bulk_insert(list)
-  values = list.map {|value| "(" + value.attributes.values.map {|v| ActiveRecord::Base.sanitize v}.join(",") + ")" }
-  ActiveRecord::Base.connection.execute "INSERT INTO #{model.table_name} (#{list.first.attributes.keys}) VALUES " + values.join(",")
+  values = list.map {|value| "(" + value.attributes.values.map {|v| ActiveRecord::Base.sanitize v}.join(",") + ", now(), now())" }
+  ActiveRecord::Base.connection.execute "INSERT INTO #{list.first.class.table_name} (#{list.first.attributes.keys.join(",")}, created_at, updated_at) VALUES " + values.join(",")
 end
 
 def seed(model, path)
