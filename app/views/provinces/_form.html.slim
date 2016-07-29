@@ -1,0 +1,12 @@
+= simple_form_for(@province) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.association :region
+    = f.input :name
+    = f.input :lat
+    = f.input :lng
+    = f.input :slug
+
+  .form-actions
+    = f.button :submit

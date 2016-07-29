@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
-  resources :regions
+  resources :contacts
   root 'page#index'
+
+  devise_for :users
+
+  resources :schools
+  resources :districts
+  resources :provinces
+  resources :regions
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

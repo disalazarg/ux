@@ -1,0 +1,21 @@
+p#notice = notice
+
+p
+  strong School:
+  = @contact.school
+p
+  strong Email:
+  = @contact.email
+p
+  strong Name:
+  = @contact.name
+p
+  strong Rbd:
+  = @contact.rbd
+p
+  strong Slug:
+  = @contact.slug
+
+= link_to 'Edit', edit_contact_path(@contact)
+'|
+= link_to 'Back', contacts_path

@@ -3,7 +3,6 @@ h1 Listing regions
 table.table
   thead
     tr
-      th Code
       th Name
       th Lat
       th Lng
@@ -15,7 +14,6 @@ table.table
   tbody
     - @regions.each do |region|
       tr
-        td = region.code
         td = region.name
         td = region.lat
         td = region.lng
@@ -26,4 +24,5 @@ table.table
 
 br
 
+= paginate @regions
 = link_to 'New Region', new_region_path

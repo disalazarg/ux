@@ -4,7 +4,7 @@ class RegionsController < ApplicationController
   respond_to :html
 
   def index
-    @regions = Region.all
+    @regions = Region.all.page params[:page]
     respond_with(@regions)
   end
 
@@ -42,6 +42,6 @@ class RegionsController < ApplicationController
     end
 
     def region_params
-      params.require(:region).permit(:code, :name, :lat, :lng, :slug)
+      params.require(:region).permit(:name, :lat, :lng, :slug)
     end
 end

@@ -1,0 +1,30 @@
+h1 Listing provinces
+
+table.table
+  thead
+    tr
+      th Region
+      th Name
+      th Lat
+      th Lng
+      th Slug
+      th
+      th
+      th
+
+  tbody
+    - @provinces.each do |province|
+      tr
+        td = province.region
+        td = province.name
+        td = province.lat
+        td = province.lng
+        td = province.slug
+        td = link_to 'Show', province
+        td = link_to 'Edit', edit_province_path(province)
+        td = link_to 'Destroy', province, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= paginate @provinces
+= link_to 'New Province', new_province_path
