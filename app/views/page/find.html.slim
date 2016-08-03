@@ -1,0 +1,10 @@
+h1 Page#find
+
+= simple_form_for :search, url: search_path do |f|
+  = f.input :region,    collection: @regions,    required: false
+  = f.input :district,  collection: @districts,  required: false
+  = f.input :statute,   collection: @statutes,   required: false
+  = f.input :education, collection: @educations, required: false
+  = f.input :products,  collection: @products
+
+  = f.submit

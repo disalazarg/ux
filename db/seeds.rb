@@ -82,14 +82,14 @@ Statute.create([
   {name: "Subvencionado"},
   {name: "Privado"},
   {name: "Administración Delegada"}
-])
+]) unless Statute.any?
 
 Education.create([
   {name: "Especial"},
   {name: "Científico-Humanista"},
   {name: "De Adultos"},
   {name: "Técnico Profesional"}
-])
+]) unless Education.any?
 
 ###
 # Dev-only fakes
@@ -136,5 +136,34 @@ if Rails.env.development? then
 
       bulk_insert contacts.select {|s| s.valid? }
     end
+  end
+
+  unless User.any? then
+    (1..20).each do
+      pass = Faker::Internet.password
+
+      User.create({
+        email: Faker::Internet.safe_email,
+        password: pass,
+        password_confirmation: pass 
+      })
+    end
+  end
+
+  unless Product.any? then
+    users = User.all
+
+    (1..50).each do
+      Product.create({
+        user: users.sample,
+        name: Faker::Commerce.product_name,
+        link: Faker::Internet.url,
+        description: Faker::Company.bs
+      })
+    end
+  end
+
+  unless Poll.any? then
+    products = Product.all
   end
 end
