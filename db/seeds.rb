@@ -75,7 +75,15 @@ seed(District, "comunas")
 Statute.create([
   {name: "Publico"},
   {name: "Subvencionado"},
-  {name: "Privado"}
+  {name: "Privado"},
+  {name: "Administración Delegada"}
+])
+
+Education.create([
+  {name: "Especial"},
+  {name: "Científico-Humanista"},
+  {name: "De Adultos"},
+  {name: "Técnico Profesional"}
 ])
 
 ###

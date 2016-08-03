@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
-  resources :statutes
-  resources :contacts
+  resources :educations
+  resources :polls
+  resources :products
   root 'page#index'
 
   devise_for :users
 
+  resources :statutes
+  resources :contacts
   resources :schools
   resources :districts
   resources :provinces

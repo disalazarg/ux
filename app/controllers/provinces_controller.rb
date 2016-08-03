@@ -38,7 +38,7 @@ class ProvincesController < ApplicationController
 
   private
     def set_province
-      @province = Province.find(params[:id])
+      @province = Province.friendly.find(params[:id])
     end
 
     def province_params

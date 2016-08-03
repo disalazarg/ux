@@ -38,7 +38,7 @@ class StatutesController < ApplicationController
 
   private
     def set_statute
-      @statute = Statute.find(params[:id])
+      @statute = Statute.friendly.find(params[:id])
     end
 
     def statute_params

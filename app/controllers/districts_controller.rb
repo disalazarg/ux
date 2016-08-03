@@ -38,7 +38,7 @@ class DistrictsController < ApplicationController
 
   private
     def set_district
-      @district = District.find(params[:id])
+      @district = District.friendly.find(params[:id])
     end
 
     def district_params

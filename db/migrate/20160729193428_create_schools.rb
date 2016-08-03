@@ -5,6 +5,7 @@ class CreateSchools < ActiveRecord::Migration
       t.string :name
       t.string :rbd
       t.references :statute, index: true, foreign_key: true
+      t.references :education, index: true, foreign_key: true
       t.string :slug
 
       t.timestamps null: false

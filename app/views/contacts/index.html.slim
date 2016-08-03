@@ -1,12 +1,11 @@
 h1 Listing contacts
 
-table
+table.table
   thead
     tr
       th School
       th Email
       th Name
-      th Rbd
       th Slug
       th
       th
@@ -18,7 +17,6 @@ table
         td = contact.school
         td = contact.email
         td = contact.name
-        td = contact.rbd
         td = contact.slug
         td = link_to 'Show', contact
         td = link_to 'Edit', edit_contact_path(contact)

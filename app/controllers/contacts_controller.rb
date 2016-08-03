@@ -38,10 +38,10 @@ class ContactsController < ApplicationController
 
   private
     def set_contact
-      @contact = Contact.find(params[:id])
+      @contact = Contact.friendly.find(params[:id])
     end
 
     def contact_params
-      params.require(:contact).permit(:school_id, :email, :name, :rbd, :slug)
+      params.require(:contact).permit(:school_id, :email, :name, :slug)
     end
 end

@@ -1,0 +1,29 @@
+h1 Listing polls
+
+table.table
+  thead
+    tr
+      th Product
+      th Title
+      th Finish
+      th Intro
+      th Slug
+      th
+      th
+      th
+
+  tbody
+    - @polls.each do |poll|
+      tr
+        td = poll.product
+        td = poll.title
+        td = poll.finish
+        td = poll.intro
+        td = poll.slug
+        td = link_to 'Show', poll
+        td = link_to 'Edit', edit_poll_path(poll)
+        td = link_to 'Destroy', poll, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Poll', new_poll_path

@@ -5,6 +5,7 @@ class School < ActiveRecord::Base
   has_one :region, through: :province
   belongs_to :district
   belongs_to :statute
+  belongs_to :education
 
   friendly_id :name, use: :slugged
 

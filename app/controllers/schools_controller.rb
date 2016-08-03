@@ -38,7 +38,7 @@ class SchoolsController < ApplicationController
 
   private
     def set_school
-      @school = School.find(params[:id])
+      @school = School.friendly.find(params[:id])
     end
 
     def school_params

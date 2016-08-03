@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160729062546) do
+ActiveRecord::Schema.define(version: 20160803062120) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,7 +20,6 @@ ActiveRecord::Schema.define(version: 20160729062546) do
     t.integer  "school_id"
     t.string   "email"
     t.string   "name"
-    t.string   "rbd"
     t.string   "slug"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -42,6 +41,32 @@ ActiveRecord::Schema.define(version: 20160729062546) do
 
   add_index "districts", ["province_id"], name: "index_districts_on_province_id", using: :btree
   add_index "districts", ["slug"], name: "index_districts_on_slug", unique: true, using: :btree
+
+  create_table "polls", force: :cascade do |t|
+    t.integer  "product_id"
+    t.string   "title"
+    t.date     "finish"
+    t.text     "intro"
+    t.string   "slug"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "polls", ["product_id"], name: "index_polls_on_product_id", using: :btree
+  add_index "polls", ["slug"], name: "index_polls_on_slug", unique: true, using: :btree
+
+  create_table "products", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.string   "link"
+    t.text     "description"
+    t.string   "slug"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "products", ["slug"], name: "index_products_on_slug", unique: true, using: :btree
+  add_index "products", ["user_id"], name: "index_products_on_user_id", using: :btree
 
   create_table "provinces", force: :cascade do |t|
     t.integer  "region_id"
@@ -70,14 +95,26 @@ ActiveRecord::Schema.define(version: 20160729062546) do
   create_table "schools", force: :cascade do |t|
     t.integer  "district_id"
     t.string   "name"
-    t.string   "statute"
+    t.string   "rbd"
+    t.integer  "statute_id"
     t.string   "slug"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
 
   add_index "schools", ["district_id"], name: "index_schools_on_district_id", using: :btree
+  add_index "schools", ["rbd"], name: "index_schools_on_rbd", unique: true, using: :btree
   add_index "schools", ["slug"], name: "index_schools_on_slug", unique: true, using: :btree
+  add_index "schools", ["statute_id"], name: "index_schools_on_statute_id", using: :btree
+
+  create_table "statutes", force: :cascade do |t|
+    t.string   "name"
+    t.string   "slug"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "statutes", ["slug"], name: "index_statutes_on_slug", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -99,6 +136,9 @@ ActiveRecord::Schema.define(version: 20160729062546) do
 
   add_foreign_key "contacts", "schools"
   add_foreign_key "districts", "provinces"
+  add_foreign_key "polls", "products"
+  add_foreign_key "products", "users"
   add_foreign_key "provinces", "regions"
   add_foreign_key "schools", "districts"
+  add_foreign_key "schools", "statutes"
 end

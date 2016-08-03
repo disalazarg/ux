@@ -1,0 +1,21 @@
+p#notice = notice
+
+p
+  strong Product:
+  = @poll.product
+p
+  strong Title:
+  = @poll.title
+p
+  strong Finish:
+  = @poll.finish
+p
+  strong Intro:
+  = @poll.intro
+p
+  strong Slug:
+  = @poll.slug
+
+= link_to 'Edit', edit_poll_path(@poll)
+'|
+= link_to 'Back', polls_path
