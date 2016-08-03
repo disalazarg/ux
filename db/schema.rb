@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160803062120) do
+ActiveRecord::Schema.define(version: 20160803165002) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,6 +81,15 @@ ActiveRecord::Schema.define(version: 20160803062120) do
   add_index "provinces", ["region_id"], name: "index_provinces_on_region_id", using: :btree
   add_index "provinces", ["slug"], name: "index_provinces_on_slug", unique: true, using: :btree
 
+  create_table "questions", force: :cascade do |t|
+    t.integer  "poll_id"
+    t.text     "statement"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "questions", ["poll_id"], name: "index_questions_on_poll_id", using: :btree
+
   create_table "regions", force: :cascade do |t|
     t.string   "name"
     t.decimal  "lat"
@@ -139,6 +148,7 @@ ActiveRecord::Schema.define(version: 20160803062120) do
   add_foreign_key "polls", "products"
   add_foreign_key "products", "users"
   add_foreign_key "provinces", "regions"
+  add_foreign_key "questions", "polls"
   add_foreign_key "schools", "districts"
   add_foreign_key "schools", "statutes"
 end

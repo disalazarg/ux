@@ -91,8 +91,21 @@ Education.create([
 ###
 if Rails.env.development? then
   unless School.any? then
-    districts = District.all
-    schools   = districts.map do |dist|
+    districts  = District.all
+    statutes   = Statute.all
+    educations = Education.all
+
+    schools    = districts.map do |dist|
+      school = School.new({
+        district:  districts.sample,
+        statute:   statutes.sample,
+        education: educations.sample,
+
+        name: Faker::Company.name,
+        rbd:  Faker::Company.ein
+      })
     end
+
+    bulk_insert schools if schools.map(&:valid?).all?
   end
 end

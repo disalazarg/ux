@@ -3,6 +3,6 @@ class Poll < ActiveRecord::Base
 
   belongs_to :product
   has_one :user, through: :product
-
+  
   friendly_id :name, use: :slugged
 end
