@@ -42,6 +42,15 @@ ActiveRecord::Schema.define(version: 20160803165002) do
   add_index "districts", ["province_id"], name: "index_districts_on_province_id", using: :btree
   add_index "districts", ["slug"], name: "index_districts_on_slug", unique: true, using: :btree
 
+  create_table "educations", force: :cascade do |t|
+    t.string   "name"
+    t.string   "slug"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "educations", ["slug"], name: "index_educations_on_slug", unique: true, using: :btree
+
   create_table "polls", force: :cascade do |t|
     t.integer  "product_id"
     t.string   "title"
@@ -103,15 +112,17 @@ ActiveRecord::Schema.define(version: 20160803165002) do
 
   create_table "schools", force: :cascade do |t|
     t.integer  "district_id"
+    t.integer  "statute_id"
+    t.integer  "education_id"
     t.string   "name"
     t.string   "rbd"
-    t.integer  "statute_id"
     t.string   "slug"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   add_index "schools", ["district_id"], name: "index_schools_on_district_id", using: :btree
+  add_index "schools", ["education_id"], name: "index_schools_on_education_id", using: :btree
   add_index "schools", ["rbd"], name: "index_schools_on_rbd", unique: true, using: :btree
   add_index "schools", ["slug"], name: "index_schools_on_slug", unique: true, using: :btree
   add_index "schools", ["statute_id"], name: "index_schools_on_statute_id", using: :btree
@@ -150,5 +161,6 @@ ActiveRecord::Schema.define(version: 20160803165002) do
   add_foreign_key "provinces", "regions"
   add_foreign_key "questions", "polls"
   add_foreign_key "schools", "districts"
+  add_foreign_key "schools", "educations"
   add_foreign_key "schools", "statutes"
 end

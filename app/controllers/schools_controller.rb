@@ -4,7 +4,7 @@ class SchoolsController < ApplicationController
   respond_to :html
 
   def index
-    @schools = School.all
+    @schools = School.includes(:district, :statute, :education).all.page params[:page]
     respond_with(@schools)
   end
 

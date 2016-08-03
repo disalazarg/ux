@@ -6,6 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 $base_url = "https://apis.modernizacion.cl/dpa/"
+$rand     = Random.new
 
 ###
 # Helper module
@@ -48,9 +49,13 @@ end
 ###
 # Actual code
 ###
+def clean_for_bulk(object)
+  object.id ? object.attributes : object.attributes.reject {|k,v| k == :id or k == "id" }
+end
+
 def bulk_insert(list)
-  values = list.map {|value| "(" + value.attributes.values.map {|v| ActiveRecord::Base.sanitize v}[0...-2].join(",") + ", now(), now())" }
-  ActiveRecord::Base.connection.execute "INSERT INTO #{list.first.class.table_name} (#{list.first.attributes.keys.join(",")}) VALUES " + values.join(",")
+  values = list.map {|value| "(" + clean_for_bulk(value).values.map {|v| ActiveRecord::Base.sanitize v}[0...-2].join(",") + ", now(), now())" }
+  ActiveRecord::Base.connection.execute "INSERT INTO #{list.first.class.table_name} (#{clean_for_bulk(list.first).keys.join(",")}) VALUES " + values.join(",")
 end
 
 def seed(model, path)
@@ -91,21 +96,45 @@ Education.create([
 ###
 if Rails.env.development? then
   unless School.any? then
-    districts  = District.all
+    pages      = District.page(1).total_pages
     statutes   = Statute.all
     educations = Education.all
 
-    schools    = districts.map do |dist|
-      school = School.new({
-        district:  districts.sample,
-        statute:   statutes.sample,
-        education: educations.sample,
+    (1..pages).map do |i|
+      districts = District.page i
 
-        name: Faker::Company.name,
-        rbd:  Faker::Company.ein
-      })
+      districts.each do |dist|
+        schools = (1..10).map do
+          School.new({
+            district:  dist,
+            statute:   statutes.sample,
+            education: educations.sample,
+
+            name: Faker::Company.name,
+            rbd:  Faker::Company.ein
+          })
+        end
+
+        bulk_insert schools.select {|s| s.valid? }
+      end
     end
+  end
 
-    bulk_insert schools if schools.map(&:valid?).all?
+  unless Contact.any? then
+    pages = School.page(1).total_pages
+
+    (1..pages).map do |i|
+      schools = School.page i
+
+      contacts = schools.map do |school|
+        Contact.new({
+          school: school,
+          email: Faker::Internet.safe_email,
+          name:  Faker::Name.name
+        })
+      end
+
+      bulk_insert contacts.select {|s| s.valid? }
+    end
   end
 end

@@ -6,6 +6,7 @@ table.table
       th District
       th Name
       th Statute
+      th Education
       th Slug
       th
       th
@@ -17,6 +18,7 @@ table.table
         td = school.district
         td = school.name
         td = school.statute
+        td = school.education
         td = school.slug
         td = link_to 'Show', school
         td = link_to 'Edit', edit_school_path(school)
@@ -24,4 +26,5 @@ table.table
 
 br
 
+= paginate @schools
 = link_to 'New School', new_school_path
