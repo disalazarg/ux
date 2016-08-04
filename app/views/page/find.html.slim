@@ -5,6 +5,6 @@ h1 Page#find
   = f.input :district,  collection: @districts,  required: false
   = f.input :statute,   collection: @statutes,   required: false
   = f.input :education, collection: @educations, required: false
-  = f.input :products,  collection: @products
+  = f.input :product,   collection: @products
 
-  = f.submit
+  = f.submit "Buscar", class: 'btn btn-primary'

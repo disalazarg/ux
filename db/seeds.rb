@@ -54,8 +54,9 @@ def clean_for_bulk(object)
 end
 
 def bulk_insert(list)
-  values = list.map {|value| "(" + clean_for_bulk(value).values.map {|v| ActiveRecord::Base.sanitize v}[0...-2].join(",") + ", now(), now())" }
-  ActiveRecord::Base.connection.execute "INSERT INTO #{list.first.class.table_name} (#{clean_for_bulk(list.first).keys.join(",")}) VALUES " + values.join(",")
+  #values = list.map {|value| "(" + clean_for_bulk(value).values.map {|v| ActiveRecord::Base.sanitize v}[0...-2].join(",") + ", now(), now())" }
+  #ActiveRecord::Base.connection.execute "INSERT INTO #{list.first.class.table_name} (#{clean_for_bulk(list.first).keys.join(",")}) VALUES " + values.join(",")
+  print "#{list.count} "
 end
 
 def seed(model, path)
@@ -73,10 +74,12 @@ def seed(model, path)
   end
 end
 
+puts "Seeding geographic data"
 seed(Region,   "regiones")
 seed(Province, "provincias")
 seed(District, "comunas")
 
+puts "Seeding schools' contextual information"
 Statute.create([
   {name: "Publico"},
   {name: "Subvencionado"},
@@ -95,6 +98,7 @@ Education.create([
 # Dev-only fakes
 ###
 if Rails.env.development? then
+  print "Seeding schools..."
   unless School.any? then
     pages      = District.page(1).total_pages
     statutes   = Statute.all
@@ -112,14 +116,16 @@ if Rails.env.development? then
 
             name: Faker::Company.name,
             rbd:  Faker::Company.ein
-          })
+            })
         end
 
-        bulk_insert schools.select {|s| s.valid? }
+        print "#{i} "
+        bulk_insert schools.uniq(&:name)
       end
     end
   end
 
+  puts "Seeding contacts..."
   unless Contact.any? then
     pages = School.page(1).total_pages
 
@@ -131,13 +137,15 @@ if Rails.env.development? then
           school: school,
           email: Faker::Internet.safe_email,
           name:  Faker::Name.name
-        })
+          })
       end
 
-      bulk_insert contacts.select {|s| s.valid? }
+      print "#{i} "
+      bulk_insert contacts.select(&:valid?).uniq(&:email)
     end
   end
 
+  puts "Seeding users"
   unless User.any? then
     (1..20).each do
       pass = Faker::Internet.password
@@ -146,23 +154,27 @@ if Rails.env.development? then
         email: Faker::Internet.safe_email,
         password: pass,
         password_confirmation: pass 
-      })
+        })
     end
   end
 
+  puts "Seeding products"
   unless Product.any? then
     users = User.all
 
-    (1..50).each do
-      Product.create({
+    products = (1..50).map do
+      Product.new({
         user: users.sample,
         name: Faker::Commerce.product_name,
         link: Faker::Internet.url,
         description: Faker::Company.bs
-      })
+        })
     end
+
+    bulk_insert products.select(&:valid?).uniq(&:name)
   end
 
+  puts "Seeding polls"
   unless Poll.any? then
     products = Product.all
   end

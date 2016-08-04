@@ -12,6 +12,14 @@ class PageController < ApplicationController
   end
 
   def search
-    render json: params[:search] and return
+    p = params[:search]
+
+    @schools = School
+      .by_region(p[:region])
+      .by_district(p[:district])
+      .by_statute(p[:statute])
+      .by_education(p[:education])
+
+    render json: { schools: @schools } and return
   end
 end

@@ -10,4 +10,16 @@ class School < ActiveRecord::Base
   friendly_id :name, use: :slugged
 
   delegate :to_s, to: :name
+
+  scope :by_region,    -> (param) { joins(:province).where(*cond_for_scope("region",   param)) }
+  scope :by_district,  -> (param) { joins(:district).where(*cond_for_scope("district", param)) }
+  scope :by_statute,   -> (param) { joins(:statute).where(*cond_for_scope("statute",  param)) }
+  scope :by_education, -> (param) { joins(:education).where(*cond_for_scope("education", param)) }
+
+  private
+  def self.cond_for_scope(name, param)
+    param.try(:zero?) or param.try(:empty?) ?
+      ["true"] :
+      ["#{name}_id = ?", param]
+  end
 end
