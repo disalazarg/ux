@@ -96,8 +96,8 @@ Education.create([
 ###
 # Dev-only fakes
 ###
-if Rails.env.development? then
-  print "Seeding schools..."
+if Rails.env.development? or ENV['FORCE_SEED'] == "true" then
+  puts "Seeding schools..."
   unless School.any? then
     pages      = District.page(1).total_pages
     statutes   = Statute.all
@@ -120,9 +120,9 @@ if Rails.env.development? then
             })
         end
       end
-
-      bulk_insert schools.flatten.uniq(&:name)
     end
+    
+    bulk_insert schools.flatten.uniq(&:rbd)
   end
 
   puts "Seeding contacts..."
@@ -142,12 +142,12 @@ if Rails.env.development? then
       end
     end
 
-    bulk_insert contacts.uniq(&:email)
+    bulk_insert contacts.flatten.uniq(&:email)
   end
 
   puts "Seeding users"
   unless User.any? then
-    users = (1..20).each do
+    users = (1..20).map do
       pass = Faker::Internet.password
 
       User.new({
