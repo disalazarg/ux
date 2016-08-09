@@ -19,7 +19,18 @@ class PageController < ApplicationController
       .by_district(p[:district])
       .by_statute(p[:statute])
       .by_education(p[:education])
+      .order('RANDOM()')
+      .limit(p[:max])
 
-    render json: { schools: @schools } and return
+    respond_with @schools
+  end
+
+  def sendmail
+    @contacts = Contact.where(school_id: params[:poll][:schools])
+    @contacts.map do |contact|
+      UxMailer.greeter(contact).deliver_later
+    end
+
+    render text: "OK!"
   end
 end

@@ -4,7 +4,7 @@ class ContactsController < ApplicationController
   respond_to :html
 
   def index
-    @contacts = Contact.all
+    @contacts = Contact.includes(:school).all.page params[:page]
     respond_with(@contacts)
   end
 

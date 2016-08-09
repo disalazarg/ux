@@ -1,6 +1,7 @@
 h1 Page#find
 
 = simple_form_for :search, url: search_path do |f|
+  = f.input :max,       as: :integer,            required: true, default: 100
   = f.input :region,    collection: @regions,    required: false
   = f.input :district,  collection: @districts,  required: false
   = f.input :statute,   collection: @statutes,   required: false

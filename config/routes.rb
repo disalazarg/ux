@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   root 'page#index'
-  get  'find'   => 'page#find'
-  post 'search' => 'page#search'
+  get  'find'     => 'page#find'
+  post 'search'   => 'page#search'
+  post 'sendmail' => 'page#sendmail'
 
   devise_for :users
 

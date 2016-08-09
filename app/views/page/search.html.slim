@@ -1,0 +1,5 @@
+= simple_form_for :poll, url: sendmail_path do |f|
+  = f.collection_check_boxes :schools, @schools, :id, :name
+
+  = link_to "Cancel", root_path, class: 'btn btn-default'
+  = f.submit class: 'btn btn-primary'

@@ -6,6 +6,7 @@ class School < ActiveRecord::Base
   belongs_to :district
   belongs_to :statute
   belongs_to :education
+  has_many :contacts, inverse_of: :school
 
   friendly_id :name, use: :slugged
 
