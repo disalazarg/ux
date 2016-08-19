@@ -17,6 +17,12 @@ class PollsController < ApplicationController
     respond_with(@poll)
   end
 
+  def answer
+    @data   = UXJWT.decode params[:token]
+    @poll   = Poll.includes(questions: :alternatives).friendly.find params[:poll_id]
+    @answer = Answer.new @data
+  end
+
   def edit
   end
 

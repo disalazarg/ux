@@ -1,0 +1,23 @@
+h1 Listing picks
+
+table.table
+  thead
+    tr
+      th Answer
+      th Alternative
+      th
+      th
+      th
+
+  tbody
+    - @picks.each do |pick|
+      tr
+        td = pick.answer
+        td = pick.alternative
+        td = link_to 'Show', pick
+        td = link_to 'Edit', edit_pick_path(pick)
+        td = link_to 'Destroy', pick, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Pick', new_pick_path

@@ -11,10 +11,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160803165002) do
+ActiveRecord::Schema.define(version: 20160819174106) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "alternatives", force: :cascade do |t|
+    t.integer  "question_id"
+    t.integer  "number"
+    t.text     "statement"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "alternatives", ["question_id"], name: "index_alternatives_on_question_id", using: :btree
+
+  create_table "answers", force: :cascade do |t|
+    t.integer  "contact_id"
+    t.integer  "product_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "answers", ["contact_id"], name: "index_answers_on_contact_id", using: :btree
+  add_index "answers", ["product_id"], name: "index_answers_on_product_id", using: :btree
 
   create_table "contacts", force: :cascade do |t|
     t.integer  "school_id"
@@ -51,8 +71,17 @@ ActiveRecord::Schema.define(version: 20160803165002) do
 
   add_index "educations", ["slug"], name: "index_educations_on_slug", unique: true, using: :btree
 
+  create_table "picks", force: :cascade do |t|
+    t.integer  "answer_id"
+    t.integer  "alternative_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "picks", ["alternative_id"], name: "index_picks_on_alternative_id", using: :btree
+  add_index "picks", ["answer_id"], name: "index_picks_on_answer_id", using: :btree
+
   create_table "polls", force: :cascade do |t|
-    t.integer  "product_id"
     t.string   "title"
     t.date     "finish"
     t.text     "intro"
@@ -61,7 +90,6 @@ ActiveRecord::Schema.define(version: 20160803165002) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "polls", ["product_id"], name: "index_polls_on_product_id", using: :btree
   add_index "polls", ["slug"], name: "index_polls_on_slug", unique: true, using: :btree
 
   create_table "products", force: :cascade do |t|
@@ -154,9 +182,13 @@ ActiveRecord::Schema.define(version: 20160803165002) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "alternatives", "questions"
+  add_foreign_key "answers", "contacts"
+  add_foreign_key "answers", "products"
   add_foreign_key "contacts", "schools"
   add_foreign_key "districts", "provinces"
-  add_foreign_key "polls", "products"
+  add_foreign_key "picks", "alternatives"
+  add_foreign_key "picks", "answers"
   add_foreign_key "products", "users"
   add_foreign_key "provinces", "regions"
   add_foreign_key "questions", "polls"

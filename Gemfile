@@ -65,6 +65,7 @@ end
 
 gem 'kaminari'
 gem 'friendly_id'
+gem 'jwt'
 
 gem 'sidekiq'
 

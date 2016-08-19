@@ -6,6 +6,9 @@ Rails.application.routes.draw do
 
   devise_for :users
 
+  resources :answers
+  resources :picks
+  resources :alternatives
   resources :statutes
   resources :contacts
   resources :schools
@@ -14,7 +17,9 @@ Rails.application.routes.draw do
   resources :regions
   resources :questions
   resources :educations
-  resources :polls
+  resources :polls do
+    get 'answer' => 'polls#answer', as: :answer
+  end
   resources :products
 
   # The priority is based upon order of creation: first created -> highest priority.

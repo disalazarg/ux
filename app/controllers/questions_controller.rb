@@ -4,7 +4,7 @@ class QuestionsController < ApplicationController
   respond_to :html
 
   def index
-    @questions = Question.all
+    @questions = Question.includes(:alternatives).all
     respond_with(@questions)
   end
 
@@ -38,7 +38,7 @@ class QuestionsController < ApplicationController
 
   private
     def set_question
-      @question = Question.find(params[:id])
+      @question = Question.includes(:alternatives).find(params[:id])
     end
 
     def question_params

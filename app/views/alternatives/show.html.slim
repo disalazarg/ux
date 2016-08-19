@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Question:
+  = @alternative.question
+p
+  strong Number:
+  = @alternative.number
+p
+  strong Statement:
+  = @alternative.statement
+
+= link_to 'Edit', edit_alternative_path(@alternative)
+'|
+= link_to 'Back', alternatives_path

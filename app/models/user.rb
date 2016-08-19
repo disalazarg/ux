@@ -6,4 +6,6 @@ class User < ActiveRecord::Base
 
   has_many :products, inverse_of: :user
   has_many :polls, through: :products
+
+  delegate :to_s, to: :email
 end

@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong Contact:
+  = @answer.contact
+p
+  strong Product:
+  = @answer.product
+
+= link_to 'Edit', edit_answer_path(@answer)
+'|
+= link_to 'Back', answers_path

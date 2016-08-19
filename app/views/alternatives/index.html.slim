@@ -1,0 +1,25 @@
+h1 Listing alternatives
+
+table.table
+  thead
+    tr
+      th Question
+      th Number
+      th Statement
+      th
+      th
+      th
+
+  tbody
+    - @alternatives.each do |alternative|
+      tr
+        td = alternative.question
+        td = alternative.number
+        td = alternative.statement
+        td = link_to 'Show', alternative
+        td = link_to 'Edit', edit_alternative_path(alternative)
+        td = link_to 'Destroy', alternative, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Alternative', new_alternative_path

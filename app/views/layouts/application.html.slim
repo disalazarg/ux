@@ -7,5 +7,8 @@ head
   = csrf_meta_tags
 
 body
-  .container
-    = yield
+  = render 'header'
+  main
+    .container
+      = yield
+  = render 'footer'

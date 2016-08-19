@@ -1,0 +1,9 @@
+= simple_form_for(@pick) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.association :answer
+    = f.association :alternative
+
+  .form-actions
+    = f.button :submit

@@ -1,0 +1,12 @@
+p#notice = notice
+
+p
+  strong Answer:
+  = @pick.answer
+p
+  strong Alternative:
+  = @pick.alternative
+
+= link_to 'Edit', edit_pick_path(@pick)
+'|
+= link_to 'Back', picks_path

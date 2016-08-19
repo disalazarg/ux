@@ -28,7 +28,7 @@ class PageController < ApplicationController
   def sendmail
     @contacts = Contact.where(school_id: params[:poll][:schools])
     @contacts.map do |contact|
-      UxMailer.greeter(contact).deliver_later
+      UxMailer.poll(contact, Product.first).deliver_later
     end
 
     render text: "OK!"

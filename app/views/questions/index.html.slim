@@ -13,10 +13,20 @@ table.table
     - @questions.each do |question|
       tr
         td = question.poll
-        td = question.statement
+        td
+          strong = question.statement
         td = link_to 'Show', question
         td = link_to 'Edit', edit_question_path(question)
         td = link_to 'Destroy', question, data: { confirm: 'Are you sure?' }, method: :delete
+
+        - question.alternatives.each do |alternative|
+          tr
+            td = alternative.number
+            td = alternative.statement
+            td = link_to 'Show', alternative
+            td = link_to 'Edit', edit_alternative_path(alternative)
+            td = link_to 'Destroy', alternative, data: { confirm: 'Are you sure?' }, method: :delete
+
 
 br
 
