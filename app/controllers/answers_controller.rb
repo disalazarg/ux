@@ -4,7 +4,7 @@ class AnswersController < ApplicationController
   respond_to :html
 
   def index
-    @answers = Answer.all
+    @answers = Answer.includes(:contact, :product).all
     respond_with(@answers)
   end
 
@@ -26,7 +26,8 @@ class AnswersController < ApplicationController
       @answer.picks.build alternative_id: params[:answer]["q#{i}"].try(:[], :alternative)
     end
 
-    render json: @answer and return
+    @answer.save
+    respond_with @answer
   end
 
   def update
@@ -41,7 +42,7 @@ class AnswersController < ApplicationController
 
   private
     def set_answer
-      @answer = Answer.find(params[:id])
+      @answer = Answer.includes({ contact: :school }, :product, { picks: { alternative: :question }}).find(params[:id])
     end
 
     def answer_params

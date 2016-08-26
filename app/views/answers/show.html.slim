@@ -1,11 +1,19 @@
 p#notice = notice
 
 p
-  strong Contact:
-  = @answer.contact
+  strong Contact: 
+  = full_contact @answer.contact
 p
-  strong Product:
+  strong Product: 
   = @answer.product
+
+p
+  strong Alternatives:
+  ul
+    - @answer.picks.each do |pick|
+      h5= pick.alternative.question
+      li= pick.alternative
+
 
 = link_to 'Edit', edit_answer_path(@answer)
 '|
