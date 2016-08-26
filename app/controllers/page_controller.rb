@@ -31,6 +31,7 @@ class PageController < ApplicationController
       UxMailer.poll(contact, Product.first).deliver_later
     end
 
-    render text: "OK!"
+    flash.now[:notice] = "Mail sent successfully!"
+    redirect_to root_path
   end
 end

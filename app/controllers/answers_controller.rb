@@ -21,10 +21,12 @@ class AnswersController < ApplicationController
   end
 
   def create
-    render json: params and return
     @answer = Answer.new(answer_params)
-    @answer.save
-    respond_with(@answer)
+    (1..5).each do |i|
+      @answer.picks.build alternative_id: params[:answer]["q#{i}"].try(:[], :alternative)
+    end
+
+    render json: @answer and return
   end
 
   def update
