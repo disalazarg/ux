@@ -1,4 +1,4 @@
-h1 Page#find
+h1 Enviar Encuesta
 
 = simple_form_for :search, url: search_path do |f|
   = f.input :max,       as: :integer,            required: true, default: 100
@@ -8,4 +8,4 @@ h1 Page#find
   = f.input :education, collection: @educations, required: false
   = f.input :product,   collection: @products
 
-  = f.submit "Buscar", class: 'btn btn-primary'
+  = f.submit "Enviar", class: 'btn btn-primary'

@@ -9,6 +9,6 @@ class UxMailer < ApplicationMailer
     @token   = UXJWT.encode({ contact_id: contact.id, product_id: product.id })
     @url     = "http://uxagencia.ing.puc.cl/polls/1/answer?token=#{@token}"
 
-    mail to: contact.email, subject: "please answer"
+    mail to: contact.email, subject: "Cinco preguntas para construir calidad"
   end
 end
