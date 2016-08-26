@@ -13,6 +13,9 @@
 //= require jquery
 //= require bootstrap-sprockets
 //= require semantic-ui
+//= require amcharts
+//= require radar
+//= require gauge
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
