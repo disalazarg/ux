@@ -1,7 +1,7 @@
-= simple_form_for :poll, url: sendmail_path do |f|
-  = f.collection_check_boxes :schools, @schools, :id, :name do |b|
-    = b.label { b.check_box + b.text }
-  end
+= form_for :poll, url: sendmail_path do |f|
+  ul
+    = f.collection_check_boxes :schools, @schools, :id, :name do |b|
+      li = b.check_box + b.text
 
   = link_to "Cancel", root_path, class: 'btn btn-default'
   = f.submit class: 'btn btn-primary'
