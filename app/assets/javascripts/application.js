@@ -15,6 +15,7 @@
 //= require semantic-ui
 //= require amcharts
 //= require radar
+//= require polar-scatter
 //= require gauge
 //= require jquery_ujs
 //= require turbolinks
