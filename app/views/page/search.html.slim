@@ -2,5 +2,5 @@
   = f.collection_check_boxes :schools, @schools, :id, :name do |b|
     div.col-md-3.col-xs-4 = b.check_box + b.text
 
-  = link_to "Cancel", root_path, class: 'btn btn-default margin-top'
-  = f.submit class: 'btn btn-primary'
+  = link_to "Cancelar", root_path, class: 'btn btn-default margin-top'
+  = f.submit 'Enviar Encuesta', class: 'btn btn-primary'
