@@ -1,11 +1,11 @@
 h1 Enviar Encuesta
 
 = simple_form_for :search, url: search_path do |f|
-  = f.input :max,       as: :integer,            required: true, default: 100
-  = f.input :region,    collection: @regions,    required: false
-  = f.input :district,  collection: @districts,  required: false
-  = f.input :statute,   collection: @statutes,   required: false
-  = f.input :education, collection: @educations, required: false
-  = f.input :product,   collection: @products
+  = f.input :max,       label:'Número de encuestados',  as: :integer,            required: true, default: 100
+  = f.input :region,    label:'Región',					collection: @regions,    required: false
+  = f.input :district,  label:'Comuna',					collection: @districts,  required: false
+  = f.input :statute,   label:'Dependencia',			collection: @statutes,   required: false
+  = f.input :education, label:'Tipo de educación',		collection: @educations, required: false
+  = f.input :product,   label:'Producto',				collection: @products,	 required: true
 
   = f.submit "Enviar", class: 'btn btn-primary'
