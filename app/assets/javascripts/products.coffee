@@ -19,7 +19,7 @@ makeAxis = (color, endValue, radius, innerRadius, balloonText) ->
   ]
 
 makeLabel = (name, y, color) ->
-  text: name
+  
   x: 49 + '%'
   y:  y + '%'
   size: 15
@@ -69,15 +69,37 @@ polarScatter = (graphs) ->
   dataProvider: []
   valueAxes: [
     gridType: 'circles'
-    minimum: 0
+    minimum: 0,
+    maximum: 3,
+    axisFrequency: 120,
+    labelsEnabled: false,
+    axisThickness: 2
   ]
-  startDuration: 1
+
+  allLabels: [{
+    text: 'Informar',
+    bold: true,
+    x: 440,
+    y: 110 
+  },
+  {
+    text: 'Orientar',
+    bold: true,
+    x: 105,
+    y: 110
+  },
+  {
+    text: 'Introducir',
+    bold: true,
+    x: 270,
+    y: 360
+  }]
+
+  startDuration: 0
   polarScatter:
     minimum: 0
     maximum: 359
     step: 1
-  legend:
-    position: 'right'
   graphs: graphs
   export:
     enabled: true
