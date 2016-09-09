@@ -88,3 +88,20 @@ polarScatter = () ->
 
 AmCharts.makeChart 'chartdiv',  gaugeChart()
 AmCharts.makeChart 'chartdiv2', polarScatter()
+
+window.load_districts = (self) ->
+  val = $(self).val()
+  $.ajax
+    url: "/regions/#{val}/districts.json"
+    dataType: "json"
+    type: "GET"
+    success: (result) =>
+      select = $('#search_district')
+      empty_option = $('#search_district option:first-child')
+      $(select).empty().append(empty_option)
+      $(result).each (index, district) =>
+        console.log "district", district
+
+        select.append($("<option></option")
+          .attr("value", district.id)
+          .text(district.name))

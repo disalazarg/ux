@@ -1,10 +1,11 @@
 class ProvincesController < ApplicationController
   before_action :set_province, only: [:show, :edit, :update, :destroy]
+  before_action :set_scope, only: [:index]
 
   respond_to :html
 
   def index
-    @provinces = Province.all.includes(:region).page params[:page]
+    @provinces = @scope.includes(:region).page params[:page]
     respond_with(@provinces)
   end
 
@@ -39,6 +40,10 @@ class ProvincesController < ApplicationController
   private
     def set_province
       @province = Province.friendly.find(params[:id])
+    end
+
+    def set_scope
+      @scope = params[:region_id].nil? ? Province.all : Region.find(params[:region_id]).provinces
     end
 
     def province_params

@@ -7,15 +7,21 @@ Rails.application.routes.draw do
 
   devise_for :users
 
+  resources :districts
+  resources :provinces do
+    resources :districts
+  end
+  resources :regions do
+    resources :provinces
+    resources :districts
+  end
+
   resources :answers
   resources :picks
   resources :alternatives
   resources :statutes
   resources :contacts
   resources :schools
-  resources :districts
-  resources :provinces
-  resources :regions
   resources :questions
   resources :educations
   resources :polls do

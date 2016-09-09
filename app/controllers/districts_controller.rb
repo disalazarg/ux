@@ -1,10 +1,11 @@
 class DistrictsController < ApplicationController
   before_action :set_district, only: [:show, :edit, :update, :destroy]
+  before_action :set_scope, only: [:index, :show]
 
   respond_to :html
 
   def index
-    @districts = District.all.includes(:province).page params[:page]
+    @districts = @scope.includes(:province).page params[:page]
     respond_with(@districts)
   end
 
@@ -39,6 +40,18 @@ class DistrictsController < ApplicationController
   private
     def set_district
       @district = District.friendly.find(params[:id])
+    end
+
+    def set_scope
+      if not params[:region_id].nil?
+        @scope = Region.find(params[:region_id])
+          .districts
+      elsif not params[:province_id].nil?
+        @scope = Province.find(params[:province_id])
+          .districts
+      else
+        @scope = District.all
+      end
     end
 
     def district_params
