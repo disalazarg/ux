@@ -1,4 +1,6 @@
 class UxMailer < ApplicationMailer
+  default from: 'no-reply@uxagencia.ing.puc.cl'
+
   def greeter(contact)
     mail to: contact.email, subject: "invitation to participate"
   end
