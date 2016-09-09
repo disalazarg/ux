@@ -105,7 +105,7 @@ polarScatter = (graphs) ->
     enabled: true
 
 parse_data = (data) ->
-  data.map (d) -> console.log transform d ; transform d
+  data.map (d) -> transform d
 
 transform = (datum) ->
   diff = datum.picks.find (d) -> d.question_id == 4

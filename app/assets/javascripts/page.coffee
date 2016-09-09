@@ -100,8 +100,6 @@ window.load_districts = (self) ->
       empty_option = $('#search_district option:first-child')
       $(select).empty().append(empty_option)
       $(result).each (index, district) =>
-        console.log "district", district
-
         select.append($("<option></option")
           .attr("value", district.id)
           .text(district.name))

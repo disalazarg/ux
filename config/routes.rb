@@ -4,8 +4,10 @@ Rails.application.routes.draw do
   post 'search'   => 'page#search'
   post 'sendmail' => 'page#sendmail'
   get  'chart_test' => 'page#chart_test'
+  get  'help'     => 'page#help'
 
   devise_for :users
+  resource :user
 
   resources :districts
   resources :provinces do
