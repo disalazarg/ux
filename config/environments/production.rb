@@ -81,14 +81,14 @@ Rails.application.configure do
   # config.action_mailer.raise_delivery_errors = true
   # config.action_mailer.delivery_method = :smtp
   # host = 'gentle-garden-7691.herokuapp.com'
-  # config.action_mailer.default_url_options = { host: host }
-  # ActionMailer::Base.smtp_settings = {
-  #   :address        => 'gator4211.hostgator.com',
-  #   :port           => '465',
-  #   :authentication => :plain,
-  #   :user_name      => ENV['SENDGRID_USERNAME'],
-  #   :password       => ENV['SENDGRID_PASSWORD'],
-  #   :domain         => 'famaranon.com',
-  #   :enable_starttls_auto => true
-  # }
+  config.action_mailer.default_url_options = { host: 'uxagencia.ing.puc.cl' }
+  ActionMailer::Base.smtp_settings = {
+    :user_name => ENV['SENDGRID_USERNAME'],
+    :password => ENV['SENDGRID_PASSWORD'],
+    :domain => 'uxagencia.ing.puc.cl',
+    :address => 'smtp.sendgrid.net',
+    :port => 587,
+    :authentication => :plain,
+    :enable_starttls_auto => true
+  }
 end
