@@ -2,11 +2,10 @@
   = f.error_notification
 
   .form-inputs
-    = f.association :user
-    = f.input :name
-    = f.input :link
-    = f.input :description
-    = f.input :slug
+    = f.association :user 
+    = f.input :name, label:'Nombre del Producto'
+    = f.input :link, label:'Link'
+    = f.input :description, label:'Descripción'
 
   .form-actions
-    = f.button :submit
+    = f.submit "cargar", class: 'btn btn-primary'
