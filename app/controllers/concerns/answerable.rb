@@ -3,7 +3,8 @@ module Answerable
     answer = Answer.new
 
     (1..5).each do |i|
-      answer.picks.build params["q#{i}".to_sym]
+      p = "q#{i}"
+      answer.picks.build params[p] unless params[p].nil?
     end
 
     answer

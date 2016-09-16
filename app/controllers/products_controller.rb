@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   before_action :set_questions, only: [:new, :edit]
+  load_and_authorize_resource
 
   respond_to :html
 
@@ -22,8 +23,10 @@ class ProductsController < ApplicationController
   end
 
   def create
-    render json: Answerable.process(product_params[:answer]) and return
-    @product = current_user.products.new(product_params)
+    @product          = Product.new(product_params.reject {|k,v| k == "answer"})
+    @product.answer   = Answerable.process(product_params[:answer])
+    @product.answers << @product.answer
+
     @product.save
     respond_with(@product)
   end
@@ -65,12 +68,12 @@ class ProductsController < ApplicationController
   end
 
   def resultset
-    @product = Product.find params[:id]
+    @product = Product.friendly.find params[:id]
   end
 
   private
     def set_product
-      @product = Product.find(params[:id])
+      @product = Product.friendly.find(params[:id])
     end
 
     def set_questions

@@ -1,6 +1,7 @@
 class DistrictsController < ApplicationController
   before_action :set_district, only: [:show, :edit, :update, :destroy]
   before_action :set_scope, only: [:index, :show]
+  load_and_authorize_resource
 
   respond_to :html
 

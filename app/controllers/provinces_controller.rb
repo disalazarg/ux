@@ -1,6 +1,7 @@
 class ProvincesController < ApplicationController
   before_action :set_province, only: [:show, :edit, :update, :destroy]
   before_action :set_scope, only: [:index]
+  load_and_authorize_resource
 
   respond_to :html
 
