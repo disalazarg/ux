@@ -9,7 +9,7 @@ gem 'pg', '~> 0.15'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass'
-gem 'semantic-ui-sass'
+# gem 'semantic-ui-sass'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
@@ -77,7 +77,7 @@ gem 'simple_form'
 gem 'devise'
 gem 'devise-i18n'
 gem 'cancancan'
-gem 'riot_js-rails'
+# gem 'riot_js-rails'
 
 gem 'rspec'
 gem 'rspec-rails'
