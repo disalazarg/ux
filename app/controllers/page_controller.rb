@@ -3,8 +3,6 @@ class PageController < ApplicationController
   end
 
   def find
-    authorize! :find, :page
-
     @regions    = Region.all
     @districts  = District.all
     @statutes   = Statute.all
@@ -14,8 +12,6 @@ class PageController < ApplicationController
   end
 
   def search
-    authorize! :search, :page
-
     p = params[:search]
 
     @schools = School
@@ -30,8 +26,6 @@ class PageController < ApplicationController
   end
 
   def sendmail
-    authorize! :sendmail, :page
-    
     @contacts = Contact.where(school_id: params[:poll][:schools])
     @contacts.map do |contact|
       UxMailer.poll(contact, Product.first).deliver_later
