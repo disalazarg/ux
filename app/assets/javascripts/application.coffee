@@ -17,13 +17,13 @@
 #= require radar
 #= require polar-scatter
 #= require gauge
-#= require riot
-#= require riot_rails
+#  require riot
+#  require riot_rails
 #= require jquery_ujs
 #= require turbolinks
 #= require_tree .
-#= require gauge-chart
-#= require scatter-chart
+#  require gauge-chart
+#  require scatter-chart
 
 document.addEventListener 'DOMContentLoaded', () ->
   init_state = [
