@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :set_questions, only: [:new, :edit]
 
   respond_to :html
 
@@ -21,7 +22,8 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.new(product_params)
+    render json: Answerable.process(product_params[:answer]) and return
+    @product = current_user.products.new(product_params)
     @product.save
     respond_with(@product)
   end
@@ -71,8 +73,13 @@ class ProductsController < ApplicationController
       @product = Product.find(params[:id])
     end
 
+    def set_questions
+      @questions = Question.includes(:alternatives).where(id: [1,3,4])
+    end
+
     def product_params
-      params.require(:product).permit(:user_id, :name, :link, :description, :slug)
+      answer_params = [q1: [:alternative_id], q3: [:alternative_id], q4: [:alternative_id]]
+      params.require(:product).permit(:name, :link, :description, :slug, answer: answer_params)
     end
 
     def prepare_results alternative

@@ -4,7 +4,7 @@ class Pick < ActiveRecord::Base
   has_one :product, through: :answer
   has_one :question, through: :alternative
 
-  delegate :question_id, to: :alternative
+  delegate :question_id, to: :alternative, allow_nil: true
 
   validates :answer,
     presence: true

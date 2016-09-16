@@ -2,6 +2,7 @@ class Product < ActiveRecord::Base
   extend FriendlyId
 
   belongs_to :user
+  belongs_to :answer
   has_many :answers, inverse_of: :product
   has_many :picks,        through: :answers
   has_many :alternatives, through: :picks

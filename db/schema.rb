@@ -94,6 +94,7 @@ ActiveRecord::Schema.define(version: 20160819174106) do
 
   create_table "products", force: :cascade do |t|
     t.integer  "user_id"
+    t.integer  "answer_id"
     t.string   "name"
     t.string   "link"
     t.text     "description"
@@ -102,6 +103,7 @@ ActiveRecord::Schema.define(version: 20160819174106) do
     t.datetime "updated_at",  null: false
   end
 
+  add_index "products", ["answer_id"], name: "index_products_on_answer_id", unique: true, using: :btree
   add_index "products", ["slug"], name: "index_products_on_slug", unique: true, using: :btree
   add_index "products", ["user_id"], name: "index_products_on_user_id", using: :btree
 

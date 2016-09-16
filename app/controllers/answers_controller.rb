@@ -21,9 +21,10 @@ class AnswersController < ApplicationController
   end
 
   def create
+    render json: Answerable.process params and return
     @answer = Answer.new(answer_params)
     (1..5).each do |i|
-      @answer.picks.build alternative_id: params[:answer]["q#{i}"].try(:[], :alternative)
+      @answer.picks.build alternative_id: params[:answer]["q#{i}"].try(:[], :alternative_id)
     end
 
     @answer.save
