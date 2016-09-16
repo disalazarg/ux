@@ -39,38 +39,8 @@ class ProductsController < ApplicationController
     respond_with(@product)
   end
 
-  def results
-<<<<<<< HEAD
+  def result
     @product = Product.friendly.find params[:id]
-=======
-    # @results = ActiveRecord::Base.connection.exec_query """
-    #   SELECT
-    #     questions.id AS question_id,
-    #     alternatives.id AS alternative_id,
-    #     COUNT(picks.id) AS count
-    #   FROM
-    #     alternatives
-    #     INNER JOIN questions ON
-    #       alternatives.question_id = questions.id
-    #     LEFT OUTER JOIN picks ON
-    #       picks.alternative_id = alternatives.id
-    #     LEFT OUTER JOIN answers ON
-    #       picks.answer_id = answers.id
-    #     LEFT OUTER JOIN products ON
-    #       answers.product_id = products.id
-    #   WHERE
-    #     products.id = #{params[:id]}
-    #   GROUP BY
-    #     questions.id, alternatives.id
-    # """
-    @answers = Answer.external.includes(:contact, :product, picks: :alternative).where(product_id: params[:id])
-
-    respond_with @answers
-  end
-
-  def resultset
-    @product = Product.find params[:id]
->>>>>>> 0dff7f4cfe219f2c8fd16c1b18c702cd0ddc3da1
   end
 
   private
