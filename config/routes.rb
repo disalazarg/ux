@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get  'find'     => 'page#find'
   post 'search'   => 'page#search'
   post 'sendmail' => 'page#sendmail'
-  get  'chart_test' => 'page#chart_test'
+  get  'test'     => 'page#test'
   get  'help'     => 'page#help'
 
   devise_for :users
