@@ -21,7 +21,7 @@ class AnswersController < ApplicationController
   end
 
   def create
-    render json: Answerable.process params and return
+    render json: Answerable.process(answer_params) and return
     @answer = Answer.new(answer_params)
     (1..5).each do |i|
       @answer.picks.build alternative_id: params[:answer]["q#{i}"].try(:[], :alternative_id)
@@ -47,6 +47,7 @@ class AnswersController < ApplicationController
     end
 
     def answer_params
-      params.require(:answer).permit(:contact_id, :product_id)
+      pms = [q1: [:alternative_id], q3: [:alternative_id], q4: [:alternative_id]]
+      params.require(:answer).permit(:contact_id, :product_id, *pms)
     end
 end
