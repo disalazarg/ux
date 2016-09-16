@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   before_action :set_questions, only: [:new, :edit]
-  load_and_authorize_resource
+  load_and_authorize_resource find_by: :slug
 
   respond_to :html
 
@@ -42,32 +42,6 @@ class ProductsController < ApplicationController
   end
 
   def results
-    # @results = ActiveRecord::Base.connection.exec_query """
-    #   SELECT
-    #     questions.id AS question_id,
-    #     alternatives.id AS alternative_id,
-    #     COUNT(picks.id) AS count
-    #   FROM
-    #     alternatives
-    #     INNER JOIN questions ON
-    #       alternatives.question_id = questions.id
-    #     LEFT OUTER JOIN picks ON
-    #       picks.alternative_id = alternatives.id
-    #     LEFT OUTER JOIN answers ON
-    #       picks.answer_id = answers.id
-    #     LEFT OUTER JOIN products ON
-    #       answers.product_id = products.id
-    #   WHERE
-    #     products.id = #{params[:id]}
-    #   GROUP BY
-    #     questions.id, alternatives.id
-    # """
-    @answers = Answer.external.includes(:contact, :product, picks: :alternative).where(product_id: params[:id])
-
-    respond_with @answers
-  end
-
-  def resultset
     @product = Product.friendly.find params[:id]
   end
 

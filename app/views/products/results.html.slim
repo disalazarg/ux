@@ -1,0 +1,10 @@
+h1 = @product.name
+p = params.inspect
+
+= form_tag results_product_path(@product), method: :get do
+  = date_field_tag :from
+  = date_field_tag :to
+  
+  = submit_tag
+
+#result style="width:600px; height:400px;"
