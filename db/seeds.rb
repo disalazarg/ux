@@ -190,35 +190,35 @@ if Rails.env.development? or ENV['FORCE_SEED'] == "true" then
   unless Question.any? then
     questions = Array.new
 
-    question = poll.questions.build statement: "La extensión del producto le parece"
+    question = poll.questions.build statement: "1. La extensión del producto le parece"
     question.alternatives << Alternative.new(number: 1, statement: "Breve")
     question.alternatives << Alternative.new(number: 2, statement: "Media")
     question.alternatives << Alternative.new(number: 3, statement: "Extensa")
 
     questions << question
 
-    question = poll.questions.build statement: "Los contenidos le parecen"
+    question = poll.questions.build statement: "2. Los contenidos le parecen"
     question.alternatives << Alternative.new(number: 1, statement: "Muy útiles")
     question.alternatives << Alternative.new(number: 2, statement: "Algo útiles")
     question.alternatives << Alternative.new(number: 3, statement: "Poco útiles")
 
     questions << question
 
-    question = poll.questions.build statement: "Considera que este producto sirve para"
+    question = poll.questions.build statement: "3. Considera que este producto sirve para"
     question.alternatives << Alternative.new(number: 1, statement: "Informar: da a conocer el acontecer en educación")
-    question.alternatives << Alternative.new(number: 2, statement: "Orientar: entrega información para ser llevadas a la práctica y/o tomar decisiones")
+    question.alternatives << Alternative.new(number: 2, statement: "Orientar: entrega información para ser llevadas a la práctica")
     question.alternatives << Alternative.new(number: 3, statement: "Introducir: explica nuevos conceptos y enfoques")
 
     questions << question
 
-    question = poll.questions.build statement: "La comprensión del producto es"
+    question = poll.questions.build statement: "4. La comprensión del producto es"
     question.alternatives << Alternative.new(number: 1, statement: "Sencilla")
     question.alternatives << Alternative.new(number: 2, statement: "Algo compleja")
     question.alternatives << Alternative.new(number: 3, statement: "Muy compleja")
 
     questions << question
 
-    question = poll.questions.build statement: "Encontrar la información que necesito es"
+    question = poll.questions.build statement: "5. Encontrar la información que necesito es"
     question.alternatives << Alternative.new(number: 1, statement: "Fácil")
     question.alternatives << Alternative.new(number: 2, statement: "Medianamente fácil")
     question.alternatives << Alternative.new(number: 3, statement: "Difícil")
