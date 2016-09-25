@@ -2,12 +2,14 @@
   <div id="{ opts.name }" style="width:600px; height:400px;"></div>
 
   <script type="coffee">
-    makeGraphs = (title) ->
+    data = JSON.parse(opts.data)
+
+    makeGraphs = (title, series) ->
       title: title
       balloonText: "[[category]]: [[value]] m/s"
       bullet: 'round'
       lineAlpha: 0
-      valueField: "data"
+      series: series
 
     polarScatter = () ->
       type: 'radar'
@@ -25,20 +27,14 @@
       legend:
         position: 'right'
       graphs: [
-        makeGraphs "Trial #1"
-        makeGraphs "Trial #2"
-        makeGraphs "Trial #3"
+        makeGraphs "Trial #1", data[0]
+        makeGraphs "Trial #2", data[1]
+        makeGraphs "Trial #3", data[2]
       ]
       export:
         enabled: true
 
     @on 'mount', () =>
       @chart = AmCharts.makeChart opts.name, polarScatter()
-
-    store.on 'update_data', () =>
-      @chart.dataProvider = store.state
-      @chart.validateData()
-
-      console.log "updated!"
   </script>
 </scatter-chart>

@@ -5,4 +5,6 @@ class Alternative < ActiveRecord::Base
   has_many :products, through: :picks
 
   delegate :to_s, to: :statement
+
+  scope :for_datapoint, -> () { where(question_id: [1,3,4]) }
 end

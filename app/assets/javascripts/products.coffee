@@ -125,5 +125,3 @@ fill_resultset = (id) ->
       ]
       
       AmCharts.makeChart "result", polarScatter(graphs)
-
-fill_resultset "1"

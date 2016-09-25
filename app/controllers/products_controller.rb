@@ -39,13 +39,13 @@ class ProductsController < ApplicationController
     respond_with(@product)
   end
 
-  def result
+  def results
     @product = Product.friendly.find params[:id]
   end
 
   private
     def set_product
-      @product = Product.find(params[:id])
+      @product = Product.friendly.find(params[:id])
     end
 
     def set_questions
@@ -55,14 +55,5 @@ class ProductsController < ApplicationController
     def product_params
       answer_params = [q1: [:alternative_id], q3: [:alternative_id], q4: [:alternative_id]]
       params.require(:product).permit(:name, :link, :description, :slug, answer: answer_params)
-    end
-
-    def prepare_results alternative
-      {
-        id: alternative.id,
-        statement: alternative.statement,
-        question_id: alternative.question_id,
-        count: alternative.picks.count
-      }
     end
 end
