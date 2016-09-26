@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
-  before_action :set_questions, only: [:new, :edit]
+  before_action :set_questions, only: [:new, :edit, :create, :update]
   #load_and_authorize_resource find_by: :slug
 
   respond_to :html
@@ -24,10 +24,9 @@ class ProductsController < ApplicationController
 
   def create
     @product          = current_user.products.new(bare_product_params)
-
-    @product.answers << Answerable.process(product_params[:answer])
-    @product.answer   = @product.answers.first
-
+    @product.answer   = Answerable.process(product_params[:answer].merge(product_id: @product.id))
+    @product.answers << @product.answer
+    
     @product.save
     respond_with(@product)
   end
