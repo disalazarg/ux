@@ -3,7 +3,8 @@ module Answerable
     answer = Answer.new params.permit(:contact_id, :product_id)
 
     (1..5).each do |i|
-      answer.picks.build params["q#{i}".to_sym]
+      pars = params["q#{i}".to_sym]
+      answer.picks.build pars if pars
     end
 
     answer
