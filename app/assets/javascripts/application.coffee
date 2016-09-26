@@ -26,11 +26,9 @@
 #= require scatter-chart
 
 document.addEventListener 'DOMContentLoaded', () ->
-  init_state = [
-  ]
+  init_state = []
 
   window.store = riot.observable
     state: init_state
 
-  #riot.mount 'gauge-chart'
-  riot.mount 'scatter-chart'
+  riot.mount '*'
