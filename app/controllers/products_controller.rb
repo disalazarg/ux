@@ -16,6 +16,7 @@ class ProductsController < ApplicationController
 
   def new
     @product = Product.new
+    @answers = Answer.includes(picks: [alternative: :question]).internal
     respond_with(@product)
   end
 
