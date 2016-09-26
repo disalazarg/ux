@@ -17,10 +17,17 @@ class Answer < ActiveRecord::Base
     end
   end
 
-  def to_datapoint
+  def to_graphpoint
     data = self
       .picks
       .select {|x| [1,3,4].index x.alternative.question_id}
+      .map(&:alternative)
+      .map(&:number)
+  end
+
+  def to_datapoint
+    data = self
+      .picks
       .map(&:alternative)
       .map(&:number)
   end
