@@ -8,7 +8,7 @@ p#notice = notice
 
 .col-md-8
   h3 Initial data
-  scatter-chart(name="init_data", data=prepare_data(@product).to_json)
+  scatter-chart(name="init_data", data=prepare_data(@product.answers.internal).to_json)
   = image_tag "simbologia.png", class: "sybology_image"
 
 

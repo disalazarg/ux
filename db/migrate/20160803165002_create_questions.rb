@@ -2,6 +2,7 @@ class CreateQuestions < ActiveRecord::Migration
   def change
     create_table :questions do |t|
       t.references :poll, index: true, foreign_key: true
+      t.integer :number
       t.text :statement
 
       t.timestamps null: false

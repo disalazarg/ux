@@ -1,4 +1,7 @@
-h4 = question.statement
+h4
+  = question.number
+  | . &nbsp;
+  = question.statement
 .row
   = f.fields_for "q#{question.id}".to_sym do |p|
     ul.no-bullet

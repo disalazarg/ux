@@ -122,6 +122,7 @@ ActiveRecord::Schema.define(version: 20160819174106) do
 
   create_table "questions", force: :cascade do |t|
     t.integer  "poll_id"
+    t.integer  "number"
     t.text     "statement"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

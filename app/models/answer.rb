@@ -20,13 +20,8 @@ class Answer < ActiveRecord::Base
   def to_datapoint
     data = self
       .picks
-      .includes(:alternative)
-      .for_datapoint
+      .select {|x| [1,3,4].index x.alternative.question_id}
       .map(&:alternative)
       .map(&:number)
-
-    data[0] = 120 * data.first + 30
-
-    data
   end
 end

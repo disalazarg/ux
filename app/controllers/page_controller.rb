@@ -34,4 +34,8 @@ class PageController < ApplicationController
     flash.now[:notice] = "Mail sent successfully!"
     redirect_to root_path
   end
+
+  def test
+    @answers = Answer.includes(picks: [alternative: :question]).all
+  end
 end

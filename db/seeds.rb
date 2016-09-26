@@ -160,22 +160,6 @@ if Rails.env.development? or ENV['FORCE_SEED'] == "true" then
     bulk_insert users.uniq(&:email)
   end
 
-  puts "Seeding products"
-  unless Product.any? then
-    users = User.all
-
-    products = (1..50).map do
-      Product.new({
-        user: users.sample,
-        name: Faker::Commerce.product_name,
-        link: Faker::Internet.url,
-        description: Faker::Company.bs
-      })
-    end
-
-    bulk_insert products.uniq(&:name)
-  end
-
   puts "Seeding polls"
   unless Poll.any? then
     poll = Poll.create({
@@ -190,35 +174,35 @@ if Rails.env.development? or ENV['FORCE_SEED'] == "true" then
   unless Question.any? then
     questions = Array.new
 
-    question = poll.questions.build statement: "1. La extensión del producto le parece"
+    question = poll.questions.build number: 1, statement: "La extensión del producto le parece"
     question.alternatives << Alternative.new(number: 1, statement: "Breve")
     question.alternatives << Alternative.new(number: 2, statement: "Media")
     question.alternatives << Alternative.new(number: 3, statement: "Extensa")
 
     questions << question
 
-    question = poll.questions.build statement: "2. Los contenidos le parecen"
+    question = poll.questions.build number: 2, statement: "Los contenidos le parecen"
     question.alternatives << Alternative.new(number: 1, statement: "Muy útiles")
     question.alternatives << Alternative.new(number: 2, statement: "Algo útiles")
     question.alternatives << Alternative.new(number: 3, statement: "Poco útiles")
 
     questions << question
 
-    question = poll.questions.build statement: "3. Considera que este producto sirve para"
+    question = poll.questions.build number: 3, statement: "Considera que este producto sirve para"
     question.alternatives << Alternative.new(number: 1, statement: "Informar: da a conocer el acontecer en educación")
     question.alternatives << Alternative.new(number: 2, statement: "Orientar: entrega información para ser llevadas a la práctica")
     question.alternatives << Alternative.new(number: 3, statement: "Introducir: explica nuevos conceptos y enfoques")
 
     questions << question
 
-    question = poll.questions.build statement: "4. La comprensión del producto es"
+    question = poll.questions.build number: 4, statement: "La comprensión del producto es"
     question.alternatives << Alternative.new(number: 1, statement: "Sencilla")
     question.alternatives << Alternative.new(number: 2, statement: "Algo compleja")
     question.alternatives << Alternative.new(number: 3, statement: "Muy compleja")
 
     questions << question
 
-    question = poll.questions.build statement: "5. Encontrar la información que necesito es"
+    question = poll.questions.build number: 5, statement: "Encontrar la información que necesito es"
     question.alternatives << Alternative.new(number: 1, statement: "Fácil")
     question.alternatives << Alternative.new(number: 2, statement: "Medianamente fácil")
     question.alternatives << Alternative.new(number: 3, statement: "Difícil")
@@ -226,5 +210,27 @@ if Rails.env.development? or ENV['FORCE_SEED'] == "true" then
     questions << question
 
     questions.map(&:save) if questions.map(&:valid?).all?
+  end
+
+    puts "Seeding products"
+  unless Product.any? then
+    users = User.all
+    questions = Question.includes(:alternatives).where(id: [1,3,4])
+
+    products = (1..50).map do
+      product = Product.new({
+        user: users.sample,
+        name: Faker::Commerce.product_name,
+        link: Faker::Internet.url,
+        description: Faker::Company.bs
+      })
+
+      answer = product.build_answer
+      questions.map do |question|
+        answer.picks.build alternative: question.alternatives.sample
+      end
+
+      product.save if product.valid?
+    end
   end
 end
