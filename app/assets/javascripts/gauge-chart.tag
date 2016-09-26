@@ -2,6 +2,8 @@
   <div id="{ opts.name }" style="width:600px; height:400px;"></div>
 
   <script type="coffee">
+    data = JSON.parse(opts.data)
+    
     makeAxis = (color, endValue, radius, innerRadius, balloonText) ->
       [
         color: '#eee'
@@ -39,10 +41,9 @@
         startAngle: 0
         endAngle: 270
         bands: [
-          makeAxis '#84b761', 100, 100,  85,  90
-          makeAxis '#fdd400',  35,  80,  65,  35
-          makeAxis '#cc4748',  92,  60,  45,  92
-          makeAxis '#67b7dc',  68,  40,  25,  68
+          makeAxis '#84b761', data[0], 100,  85, data[0]
+          makeAxis '#fdd400', data[1],  80,  65, data[1]
+          makeAxis '#cc4748', data[2],  60,  45, data[2]
         ].reduce (i,a) -> i.concat a
       ]
 
@@ -50,7 +51,6 @@
         makeLabel 'First option',   5, '#84b761'
         makeLabel 'Second option', 15, '#fdd400'
         makeLabel 'Third option',  24, '#cc4748'
-        makeLabel 'Fourth option', 33, '#67b7dc'
       ]
 
       export:

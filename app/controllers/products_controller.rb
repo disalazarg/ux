@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   before_action :set_questions, only: [:new, :edit]
-  load_and_authorize_resource find_by: :slug
+  #load_and_authorize_resource find_by: :slug
 
   respond_to :html
 
@@ -23,8 +23,11 @@ class ProductsController < ApplicationController
   end
 
   def create
-    render json: Answerable.process(product_params[:answer]) and return
-    @product = current_user.products.new(product_params)
+    @product          = current_user.products.new(bare_product_params)
+
+    @product.answers << Answerable.process(product_params[:answer])
+    @product.answer   = @product.answers.first
+
     @product.save
     respond_with(@product)
   end
@@ -41,6 +44,15 @@ class ProductsController < ApplicationController
 
   def results
     @product = Product.friendly.find params[:id]
+    @base    = @product
+      .answers
+      .includes(picks: [alternative: :question])
+      .internal
+
+    @answers = @product
+      .answers
+      .includes(picks: [alternative: :question])
+      .external
   end
 
   private
@@ -50,6 +62,10 @@ class ProductsController < ApplicationController
 
     def set_questions
       @questions = Question.includes(:alternatives).where(id: [1,3,4])
+    end
+
+    def bare_product_params
+      params.require(:product).permit(:name, :link, :description, :slug)
     end
 
     def product_params

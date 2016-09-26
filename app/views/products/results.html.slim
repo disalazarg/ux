@@ -1,5 +1,8 @@
 h1 = @product.name
-p = params.inspect
+
+scatter-chart(name="initial", data=prepare_data(@base))
+gauge-chart(name="synth",     data=prepare_gauge(@base, @answers))
+scatter-chart(name="total",   data=prepare_data(@answers))
 
 = form_tag results_product_path(@product), method: :get do
   = date_field_tag :from

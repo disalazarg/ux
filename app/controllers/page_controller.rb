@@ -36,6 +36,6 @@ class PageController < ApplicationController
   end
 
   def test
-    @answers = Answer.includes(picks: [alternative: :question]).all
+    @answers = Answer.includes(picks: [alternative: :question]).internal
   end
 end

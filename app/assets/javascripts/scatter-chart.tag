@@ -5,8 +5,8 @@
     data = JSON.parse(opts.data)
 
     makeGraphs = (title, series) ->
-      title: title
-      balloonText: "[[category]]: [[value]] m/s"
+      # title: title
+      # balloonText: "[[category]]: [[value]] m/s"
       bullet: 'round'
       lineAlpha: 0
       series: series
@@ -18,14 +18,35 @@
       valueAxes: [
         gridType: 'circles'
         minimum: 0
+        maximum: 3
+        axisFrequency: 120
+        labelsEnabled: false
+        axisThickness: 1.5
+        axisTitleOffset: 300
       ]
-      startDuration: 1
+      allLabels: [
+        text: "Informar"
+        bold: true
+        x: 430
+        y: 110
+      ,
+        text: "Introducir"
+        bold: true
+        x: 105
+        y: 110
+      ,
+        text: "Orientar"
+        bold: true
+        x: 265
+        y: 355
+    ]
+      startDuration: 0.3
       polarScatter:
         minimum: 0
         maximum: 359
         step: 1
-      legend:
-        position: 'right'
+      # legend:
+      #   position: 'right'
       graphs: [
         makeGraphs "Trial #1", data[0]
         makeGraphs "Trial #2", data[1]
