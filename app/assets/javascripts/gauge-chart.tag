@@ -7,10 +7,10 @@
     makeAxis = (color, endValue, radius, innerRadius, balloonText) ->
       [
         color: '#eee'
-        startValue: 0,
-        endValue: 100,
-        radius: radius,
-        innerRadius: innerRadius
+        startValue: 0
+        endValue: 100
+        radius: radius + '%'
+        innerRadius: innerRadius + '%'
       ,
         color: color
         startValue: 0
@@ -41,16 +41,16 @@
         startAngle: 0
         endAngle: 270
         bands: [
-          makeAxis '#84b761', data[0], 100,  85, data[0]
-          makeAxis '#fdd400', data[1],  80,  65, data[1]
-          makeAxis '#cc4748', data[2],  60,  45, data[2]
+          makeAxis '#3399ff', data[0], 100,  85, data[0]
+          makeAxis '#ffcc33', data[1],  80,  65, data[1]
+          makeAxis '#ff6666', data[2],  60,  45, data[2]
         ].reduce (i,a) -> i.concat a
       ]
 
       allLabels: [
-        makeLabel 'First option',   5, '#84b761'
-        makeLabel 'Second option', 15, '#fdd400'
-        makeLabel 'Third option',  24, '#cc4748'
+        makeLabel 'Sintonía',   5, '#3399ff'
+        makeLabel 'Facilidad de Uso', 15, '#ffcc33'
+        makeLabel 'Utilidad',  24, '#ff6666'
       ]
 
       export:
