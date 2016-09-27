@@ -31,7 +31,7 @@ class PageController < ApplicationController
     @product  = Product.find params[:poll][:product_id]
     @contacts = Contact.where(school_id: params[:poll][:schools])
     @contacts.map do |contact|
-      UxMailer.poll(contact, @product)).deliver_later
+      UxMailer.poll(contact, @product).deliver_later
     end
 
     flash.now[:notice] = "Mail sent successfully!"
