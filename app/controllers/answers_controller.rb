@@ -9,7 +9,7 @@ class AnswersController < ApplicationController
   end
 
   def show
-    respond_with(@answer)
+    respond_with(@answer, layout: "blank")
   end
 
   def new

@@ -12,6 +12,8 @@
 #= require scatter-chart
 #= require_tree .
 
+riot.mount '*'
+
 document.addEventListener 'DOMContentLoaded', () ->
   riot.mount '*'
 

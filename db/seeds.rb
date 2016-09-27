@@ -240,15 +240,15 @@ end
 # Testing seed
 ###
 if ENV["TEST_SEED"] == "true" then
-  school = School.new name: "Colegio de prueba 1"
+  school = School.new district_id: 13101, name: "Colegio de prueba 1", statute_id: 1, education_id: 1
   school.contacts.build name: "Faustino Marañon", email: "famaranon@gmail.com"
   school.save
 
-  school = School.new name: "Colegio de prueba 2"
+  school = School.new district_id: 13101, name: "Colegio de prueba 2", statute_id: 1, education_id: 1
   school.contacts.build name: "Isabelle Burq", email: "imburq@uc.cl"
   school.save
 
-  school = School.new name: "Colegio de prueba 3"
+  school = School.new district_id: 13101, name: "Colegio de prueba 3", statute_id: 1, education_id: 1
   school.contacts.build name: "Leonardo Madariaga", email: "leo.madariaga.b@gmail.com"
   school.save
 end
