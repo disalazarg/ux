@@ -19,7 +19,7 @@ header class="navbar navbar-fixed-top navbar-inverse"
               li = link_to "Encuestar", find_path
               li = link_to "Enviar reminder", root_path
 
-          li = link_to "Resultados", root_path
+          li = link_to "Resultados", results_path
       ul class="nav navbar-nav navbar-right"
         - if user_signed_in? then
           li.dropdown

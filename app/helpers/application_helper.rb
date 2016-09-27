@@ -2,8 +2,8 @@ module ApplicationHelper
   $rand = Random.new
 
   def prepare_data answers
-    return [] if answers.empty?
-    
+    return [] if answers.nil? or answers.compact.empty?
+
     data = answers
       .map(&:to_graphpoint)
 
@@ -16,7 +16,7 @@ module ApplicationHelper
   end
 
   def prepare_gauge base, answers
-    return [[0,0,0]] if base.nil? or answers.empty?
+    return [[0,0,0]] if base.nil? or answers.compact.empty?
 
     bdata = base.try :to_graphpoint
     adata = answers.map(&:to_graphpoint)

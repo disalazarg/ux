@@ -43,7 +43,7 @@ class PageController < ApplicationController
     @educations = Education.all
 
     @product    = nil
-    @base       = []
+    @base       = nil
     @answers    = []
 
     if result  = params[:results] then
@@ -57,9 +57,11 @@ class PageController < ApplicationController
         .by_education(result[:education])
 
       @base    = @product.answer
+
       @answers = @product
         .answers
         .external
+        .includes(picks: [alternative: :question])
         .joins(:contact)
         .where(contacts: { school_id: @schools.ids })
     end
