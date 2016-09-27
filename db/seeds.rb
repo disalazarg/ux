@@ -93,6 +93,59 @@ Education.create([
   {name: "Técnico Profesional"}
 ]) unless Education.any?
 
+
+puts "Seeding polls"
+  unless Poll.any? then
+    poll = Poll.create({
+      title: Faker::Lorem.sentence,
+      finish: Date.new(2020,01,01),
+      intro: Faker::Lorem.paragraph
+    })
+  else
+    poll = Poll.first
+  end
+
+puts "Seeding questions..."
+unless Question.any? then
+  questions = Array.new
+
+  question = poll.questions.build number: 1, statement: "La extensión del producto le parece"
+  question.alternatives << Alternative.new(number: 1, statement: "Breve")
+  question.alternatives << Alternative.new(number: 2, statement: "Media")
+  question.alternatives << Alternative.new(number: 3, statement: "Extensa")
+
+  questions << question
+
+  question = poll.questions.build number: 2, statement: "Los contenidos le parecen"
+  question.alternatives << Alternative.new(number: 1, statement: "Muy útiles")
+  question.alternatives << Alternative.new(number: 2, statement: "Algo útiles")
+  question.alternatives << Alternative.new(number: 3, statement: "Poco útiles")
+
+  questions << question
+
+  question = poll.questions.build number: 3, statement: "Considera que este producto sirve para"
+  question.alternatives << Alternative.new(number: 1, statement: "Informar: da a conocer el acontecer en educación")
+  question.alternatives << Alternative.new(number: 2, statement: "Orientar: entrega información para ser llevadas a la práctica")
+  question.alternatives << Alternative.new(number: 3, statement: "Introducir: explica nuevos conceptos y enfoques")
+
+  questions << question
+
+  question = poll.questions.build number: 4, statement: "La comprensión del producto es"
+  question.alternatives << Alternative.new(number: 1, statement: "Sencilla")
+  question.alternatives << Alternative.new(number: 2, statement: "Algo compleja")
+  question.alternatives << Alternative.new(number: 3, statement: "Muy compleja")
+
+  questions << question
+
+  question = poll.questions.build number: 5, statement: "Encontrar la información que necesito es"
+  question.alternatives << Alternative.new(number: 1, statement: "Fácil")
+  question.alternatives << Alternative.new(number: 2, statement: "Medianamente fácil")
+  question.alternatives << Alternative.new(number: 3, statement: "Difícil")
+
+  questions << question
+
+  questions.map(&:save) if questions.map(&:valid?).all?
+end
 ###
 # Dev-only fakes
 ###
@@ -160,59 +213,7 @@ if Rails.env.development? or ENV['FORCE_SEED'] == "true" then
     bulk_insert users.uniq(&:email)
   end
 
-  puts "Seeding polls"
-  unless Poll.any? then
-    poll = Poll.create({
-      title: Faker::Lorem.sentence,
-      finish: Date.new(2020,01,01),
-      intro: Faker::Lorem.paragraph
-    })
-  else
-    poll = Poll.first
-  end
-
-  unless Question.any? then
-    questions = Array.new
-
-    question = poll.questions.build number: 1, statement: "La extensión del producto le parece"
-    question.alternatives << Alternative.new(number: 1, statement: "Breve")
-    question.alternatives << Alternative.new(number: 2, statement: "Media")
-    question.alternatives << Alternative.new(number: 3, statement: "Extensa")
-
-    questions << question
-
-    question = poll.questions.build number: 2, statement: "Los contenidos le parecen"
-    question.alternatives << Alternative.new(number: 1, statement: "Muy útiles")
-    question.alternatives << Alternative.new(number: 2, statement: "Algo útiles")
-    question.alternatives << Alternative.new(number: 3, statement: "Poco útiles")
-
-    questions << question
-
-    question = poll.questions.build number: 3, statement: "Considera que este producto sirve para"
-    question.alternatives << Alternative.new(number: 1, statement: "Informar: da a conocer el acontecer en educación")
-    question.alternatives << Alternative.new(number: 2, statement: "Orientar: entrega información para ser llevadas a la práctica")
-    question.alternatives << Alternative.new(number: 3, statement: "Introducir: explica nuevos conceptos y enfoques")
-
-    questions << question
-
-    question = poll.questions.build number: 4, statement: "La comprensión del producto es"
-    question.alternatives << Alternative.new(number: 1, statement: "Sencilla")
-    question.alternatives << Alternative.new(number: 2, statement: "Algo compleja")
-    question.alternatives << Alternative.new(number: 3, statement: "Muy compleja")
-
-    questions << question
-
-    question = poll.questions.build number: 5, statement: "Encontrar la información que necesito es"
-    question.alternatives << Alternative.new(number: 1, statement: "Fácil")
-    question.alternatives << Alternative.new(number: 2, statement: "Medianamente fácil")
-    question.alternatives << Alternative.new(number: 3, statement: "Difícil")
-
-    questions << question
-
-    questions.map(&:save) if questions.map(&:valid?).all?
-  end
-
-    puts "Seeding products"
+  puts "Seeding products"
   unless Product.any? then
     users = User.all
     questions = Question.includes(:alternatives).where(id: [1,3,4])
@@ -233,4 +234,21 @@ if Rails.env.development? or ENV['FORCE_SEED'] == "true" then
       product.save if product.valid?
     end
   end
+end
+
+###
+# Testing seed
+###
+if ENV["TEST_SEED"] == "true" then
+  school = School.new name: "Colegio de prueba 1"
+  school.contacts.build name: "Faustino Marañon", email: "famaranon@gmail.com"
+  school.save
+
+  school = School.new name: "Colegio de prueba 2"
+  school.contacts.build name: "Isabelle Burq", email: "imburq@uc.cl"
+  school.save
+
+  school = School.new name: "Colegio de prueba 3"
+  school.contacts.build name: "Leonardo Madariaga", email: "leo.madariaga.b@gmail.com"
+  school.save
 end
