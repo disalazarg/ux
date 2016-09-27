@@ -1,5 +1,5 @@
 <scatter-chart>
-  <div id="{ opts.name }" style="width:400px; height:400px;"></div>
+  <div id="{ opts.name }" style="width:400px; height:400px; margin: 0 auto;"></div>
 
   <script type="coffee">
     data = JSON.parse(opts.data)
