@@ -1,13 +1,16 @@
-p#notice = notice
+h1 #notice = notice
 
-.col-md-8
-  h3 = @product.name
-  p.lead = link_to @product.link
+div class="row"
+aside class="col-md-4"
+  	h4 Nombre del producto
+  	h2 = @product.name
+  	h4 Link del producto
+  	h2.lead = link_to @product.link
+  	h4 Descripción del producto	
+  	h2 = simple_format @product.description
 
-  = simple_format @product.description
-
-.col-md-8
-  h3 Initial data
+div class="col-md-7" id="preview"
+  h3 Mapa
   scatter-chart(name="init_data", data=prepare_data(@product.answers.internal).to_json)
   = image_tag "simbologia.png", class: "sybology_image"
 
