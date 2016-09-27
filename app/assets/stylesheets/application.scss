@@ -18,7 +18,7 @@
 //@import "semantic-ui";
 
 main {
-  margin-top: 5em;
+  margin-top: 2.5em;
 }
 
 
@@ -488,6 +488,10 @@ table tr:hover td {
   margin: 0 auto;
   align-content: middle;
   margin-left: 90px;
+}
+
+p.parrafo{
+  text-align: justify;
 }
 
 .custom-bullet li:before

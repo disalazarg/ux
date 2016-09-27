@@ -1,5 +1,5 @@
 <scatter-chart>
-  <div id="{ opts.name }" style="width:600px; height:400px;"></div>
+  <div id="{ opts.name }" style="width:400px; height:400px;"></div>
 
   <script type="coffee">
     data = JSON.parse(opts.data)
@@ -8,6 +8,7 @@
       # title: title
       # balloonText: "[[category]]: [[value]] m/s"
       bullet: 'round'
+      bulletSize: 15
       lineAlpha: 0
       series: series
 
@@ -27,17 +28,17 @@
       allLabels: [
         text: "Informar"
         bold: true
-        x: 430
+        x: 330
         y: 110
       ,
         text: "Introducir"
         bold: true
-        x: 105
+        x: 5
         y: 110
       ,
         text: "Orientar"
         bold: true
-        x: 265
+        x: 175
         y: 355
     ]
       startDuration: 0.3
