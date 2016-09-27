@@ -7,9 +7,9 @@ module ApplicationHelper
     data = answers
       .map(&:to_graphpoint)
 
-    (1..3).map do |i|
+    (0...3).map do |i|
       data
-        .select {|x| x.last == i}
+        .select {|x| x.last == (3 - i)}
         .map {|x| x.take 2 }
         .map {|x| [to_angle(x.last), x.first] }
     end
