@@ -1,4 +1,5 @@
 = form_for :poll, url: sendmail_path do |f|
+  = f.hidden_field :product_id, value: @product.id
   = f.collection_check_boxes :schools, @schools, :id, :name do |b|
     div.col-md-3.col-xs-4 = b.check_box + b.text
 

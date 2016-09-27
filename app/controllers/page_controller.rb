@@ -22,13 +22,16 @@ class PageController < ApplicationController
       .order('RANDOM()')
       .limit(p[:max])
 
+    @product = Product.find p[:product]
+
     respond_with @schools
   end
 
   def sendmail
+    @product  = Product.find params[:poll][:product_id]
     @contacts = Contact.where(school_id: params[:poll][:schools])
     @contacts.map do |contact|
-      UxMailer.poll(contact, Product.first).deliver_later
+      UxMailer.poll(contact, @product)).deliver_later
     end
 
     flash.now[:notice] = "Mail sent successfully!"
