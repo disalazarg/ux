@@ -9,7 +9,8 @@
   .form-inputs
     = f.fields_for :answer do |a|
       - @questions.each do |question|
-        = a.input "q#{question.id}".to_sym, label: question.statement, collection: question.alternatives, required: false
+        = a.fields_for "q#{question.id}".to_sym do |p|
+          = p.input :alternative_id, label: question.statement, collection: question.alternatives, required: false
 
   .form-actions
     = f.submit "cargar", class: 'btn btn-primary'
