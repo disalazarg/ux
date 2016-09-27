@@ -3,7 +3,7 @@ module ApplicationHelper
 
   def prepare_data answers
     data = answers
-      .map(&:to_datapoint)
+      .map(&:to_graphpoint)
 
     (1..3).map do |i|
       data
@@ -14,7 +14,30 @@ module ApplicationHelper
   end
 
   def prepare_gauge base, answers
-    [50, 70, 34]
+    bdata = base.first.to_graphpoint
+    adata = answers.map(&:to_graphpoint)
+
+    count = {
+      total:  adata.count,
+      first:  adata.count { |x| x[0] == bdata[0] },
+      second: adata.count { |x| x[1] == bdata[1] },
+      third:  adata.count { |x| x[2] == bdata[2] }
+    }
+
+    synth  = 0
+    synth += (count[:first]  / count[:total]) * 50
+    synth += (count[:second] / count[:total]) * 25
+    synth += (count[:third]  / count[:total]) * 25
+
+    adata  = answers.map(&:to_datapoint)
+
+    ease   = (3 * adata.count {|x| x[4] == 1}) + (adata.count {|x| x[4] == 2 })
+    ease  *= 100.0 / (adata.count * 3)
+
+    util   = (3 * adata.count {|x| x[1] == 1}) + (adata.count {|x| x[1] == 2 })
+    util  *= 100.0 / (adata.count * 3)
+
+    [synth, ease, util]
   end
 
   def to_angle num
