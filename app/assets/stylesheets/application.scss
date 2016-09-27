@@ -490,6 +490,18 @@ table tr:hover td {
   margin-left: 90px;
 }
 
+.custom-bullet li:before
+{
+    /*Using a Bootstrap glyphicon as the bullet point*/
+    content: "\e080";
+    font-family: 'Glyphicons Halflings';
+    font-size: 9px;
+    float: left;
+    margin-top: 4px;
+    margin-left: -17px;
+    color: #fff;
+}
+
 main{ margin-bottom: 120px; }
 footer{
   bottom: 0;

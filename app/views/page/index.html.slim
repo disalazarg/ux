@@ -1,4 +1,49 @@
-div class="center jumbotron"
-	h3 Bienvenido al 
-	h1 Sistema de Gestión del Usuario
-	= link_to "Ingresar", new_user_session_path, class: "btn btn-lg btn-primary"
+- if !user_signed_in? then
+	div class="center jumbotron"
+		h3 Bienvenido al 
+		h1 Sistema de Gestión del Usuario
+		= link_to "Ingresar", new_user_session_path, class: "btn btn-lg btn-primary"
+
+- else
+	div class="row"
+		div class="col-md-2"
+		div class="col-md-1"
+			= image_tag "flecha1.png"
+		div class="col-md-1"
+			= image_tag "flecha2.png"
+		div class="col-md-1"
+			= image_tag "flecha3.png"
+	div class="row"
+		div class="col-md-1"
+		div class="col-md-3"
+			h1 Mapa
+			p En esta sección podrás cargar los porductos, indicando:
+			ul class="custom-bullet"
+				li Nombre del Producto
+				li Link
+				li Descripción
+				li Extensión del Prodructo
+				li Objetivo del Producto
+				li Comprensión del Producto
+		div class="col-md-1"	
+		div class="col-md-3"
+			h1 Encuestar
+			p En esta sección podrás enviar encuestas filtrando por:
+			ul class="custom-bullet"
+				li Nombre del Producto
+				li Link
+				li Descripción
+				li Extensión del Prodructo
+				li Objetivo del Producto
+				li Comprensión del Producto
+		div class="col-md-1"
+		div class="col-md-3"
+			h1 Resultados
+			p En esta sección podrás enviar encuestas filtrando por:
+			ul class="custom-bullet"
+				li Nombre del Producto
+				li Link
+				li Descripción
+				li Extensión del Prodructo
+				li Objetivo del Producto
+				li Comprensión del Producto
