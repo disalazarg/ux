@@ -1,6 +1,7 @@
 class Answer < ActiveRecord::Base
   belongs_to :contact
   belongs_to :product
+  has_one  :school, through: :contact
   has_many :picks, inverse_of: :answer
   has_many :alternatives, through: :picks
 

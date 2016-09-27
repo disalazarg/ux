@@ -49,7 +49,8 @@ class PageController < ApplicationController
     if result  = params[:results] then
       @product = Product.friendly.find result[:product]
 
-      @schools = School
+      @schools = @product
+        .schools
         .by_region(result[:region])
         .by_district(result[:district])
         .by_statute(result[:statute])
