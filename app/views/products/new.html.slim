@@ -3,7 +3,7 @@ aside class="col-md-4"
   h3 Cargar producto
   == render 'form'
 
-div class="col-md-8"
+div class="col-md-7" id="preview"
   h3 Mapa de Productos
   scatter-chart(name="existing", data=prepare_data(@answers))
   = image_tag "simbologia.png", class: "sybology_image"
