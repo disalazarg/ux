@@ -8,6 +8,7 @@
       # title: title
       # balloonText: "[[category]]: [[value]] m/s"
       bullet: 'round'
+      bulletSize: 15
       lineAlpha: 0
       series: series
 
