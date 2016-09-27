@@ -46,7 +46,7 @@ class PageController < ApplicationController
     @base       = nil
     @answers    = []
 
-    if result  = params[:results] then
+    if result  = params[:results] and not params[:results][:product].empty? then
       @product = Product.friendly.find result[:product]
 
       @schools = @product
@@ -69,5 +69,9 @@ class PageController < ApplicationController
 
   def test
     @answers = Answer.includes(picks: [alternative: :question]).internal
+  end
+
+  def preview
+    render layout: false
   end
 end

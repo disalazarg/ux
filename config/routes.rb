@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get  'test'     => 'page#test'
   get  'help'     => 'page#help'
   get  'results'  => 'page#results'
+  get  'mails/preview' => 'page#preview'
 
   devise_for :users
   resource :user
