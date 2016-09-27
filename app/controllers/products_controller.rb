@@ -24,7 +24,6 @@ class ProductsController < ApplicationController
   end
 
   def create
-    render json: params and return
     @product          = current_user.products.new(bare_product_params)
     @product.answer   = Answerable.process(product_params[:answer].merge(product_id: @product.id))
     @product.answers << @product.answer
