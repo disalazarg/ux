@@ -35,6 +35,35 @@ class PageController < ApplicationController
     redirect_to root_path
   end
 
+  def results
+    @products   = Product.all
+    @regions    = Region.all
+    @districts  = District.all
+    @statutes   = Statute.all
+    @educations = Education.all
+
+    @product    = nil
+    @base       = []
+    @answers    = []
+
+    if result  = params[:results] then
+      @product = Product.friendly.find result[:product]
+
+      @schools = School
+        .by_region(result[:region])
+        .by_district(result[:district])
+        .by_statute(result[:statute])
+        .by_education(result[:education])
+
+      @base    = @product.answer
+      @answers = @product
+        .answers
+        .external
+        .joins(:contact)
+        .where(contacts: { school_id: @schools.ids })
+    end
+  end
+
   def test
     @answers = Answer.includes(picks: [alternative: :question]).internal
   end

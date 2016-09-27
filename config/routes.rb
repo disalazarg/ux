@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   post 'sendmail' => 'page#sendmail'
   get  'test'     => 'page#test'
   get  'help'     => 'page#help'
+  get  'results'  => 'page#results'
 
   devise_for :users
   resource :user

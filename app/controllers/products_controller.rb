@@ -48,6 +48,7 @@ class ProductsController < ApplicationController
       .answers
       .includes(picks: [alternative: :question])
       .internal
+      .first
 
     @answers = @product
       .answers

@@ -1,0 +1,26 @@
+h2 Resultados
+h1 = @product.try :name
+
+.row
+  .col-xs-4
+    scatter-chart(name="base", data=prepare_data([@base]))
+
+  .col-xs-4
+    gauge-chart(name="synth", data=prepare_gauge(@base, @answers))
+
+  .col-xs-4
+    scatter-chart(name="results", data=prepare_data(@answers))
+
+.row
+  = simple_form_for :results, url: results_path, method: :get do |f|
+    = f.input :product,   label: "Producto",         collection: @products,   required: false, value_method: :slug
+    hr
+    = f.input :region,    label:'Región',            collection: @regions,    required: false, input_html: { onchange: 'load_districts(this)' }
+    = f.input :district,  label:'Comuna',            collection: @districts,  required: false, input_html: { id: 'districts'}
+    = f.input :statute,   label:'Dependencia',       collection: @statutes,   required: false
+    = f.input :education, label:'Tipo de educación', collection: @educations, required: false
+    hr
+    = f.input :from, label: "Desde"
+    = f.input :to,   label: "Hasta"
+    
+    = submit_tag "Ver"
