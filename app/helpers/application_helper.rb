@@ -18,14 +18,14 @@ module ApplicationHelper
   def prepare_gauge base, answers
     return [[0,0,0]] if base.nil? or answers.compact.empty?
 
-    bdata = base.try :to_graphpoint
-    adata = answers.map(&:to_graphpoint)
+    bdata = base.to_datapoint
+    adata = answers.map(&:to_datapoint)
 
     count = {
-      total:  adata.count,
+      total:  adata.count.to_f,
       first:  adata.count { |x| x[0] == bdata[0] },
-      second: adata.count { |x| x[1] == bdata[1] },
-      third:  adata.count { |x| x[2] == bdata[2] }
+      second: adata.count { |x| x[2] == bdata[2] },
+      third:  adata.count { |x| x[3] == bdata[3] }
     }
 
     synth  = 0
