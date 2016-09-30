@@ -7,6 +7,8 @@ class Answer < ActiveRecord::Base
 
   accepts_nested_attributes_for :picks
 
+  delegate :name, to: :school, prefix: true, allow_nil: true
+
   validate :all_picked
 
   scope :internal, -> { where(contact: nil) }

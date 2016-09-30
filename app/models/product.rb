@@ -12,4 +12,16 @@ class Product < ActiveRecord::Base
   friendly_id :name, use: :slugged
 
   delegate :to_s, to: :name
+
+  def to_csv
+    CSV.generate do |csv|
+      csv << [name]
+      csv << []
+
+      csv << ["Colegio"] + questions.distinct.map(&:statement)
+      answers.last(answers.length.pred).each do |answer|
+        csv << [answer.school_name] + answer.picks.map(&:alternative).map(&:statement)
+      end
+    end
+  end
 end

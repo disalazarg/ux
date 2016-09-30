@@ -56,6 +56,12 @@ class ProductsController < ApplicationController
       .external
   end
 
+  def download
+    @product = Product.includes(answers: [:school, picks: [alternative: :question]]).friendly.find params[:id]
+
+    render csv: @product
+  end
+
   private
     def set_product
       @product = Product.friendly.find(params[:id])
