@@ -12,10 +12,9 @@
 #= require scatter-chart
 #= require_tree .
 
-riot.mount '*'
-
 document.addEventListener 'DOMContentLoaded', () ->
   riot.mount '*'
+  setTimeout (() -> riot.mount '*'), 2000
 
   window.load_districts = (self) ->
     val = $(self).val()
