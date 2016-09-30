@@ -20,7 +20,7 @@ document.addEventListener 'DOMContentLoaded', () ->
     val = $(self).val()
 
     $.ajax
-      url:      "/regions/#{val}/districts.json"
+      url:      "/regions/#{val}/districts.json?page=all"
       dataType: "json"
       type:     "GET"
       success: (result) =>

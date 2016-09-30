@@ -5,7 +5,8 @@ class DistrictsController < ApplicationController
   respond_to :html
 
   def index
-    @districts = @scope.includes(:province).page params[:page]
+    @districts = @scope.includes(:province)
+    @districts = @districts.page params[:page] unless params[:page] == "all"
     respond_with(@districts)
   end
 
