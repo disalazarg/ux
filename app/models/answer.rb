@@ -30,6 +30,9 @@ class Answer < ActiveRecord::Base
     data = self
       .picks
       .map(&:alternative)
-      .map(&:number)
+
+    (1..5).map do |i|
+      data.map {|x| x.question_id == i ? x.number : 0}.sum
+    end
   end
 end

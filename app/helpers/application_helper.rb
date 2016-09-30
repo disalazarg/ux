@@ -28,9 +28,11 @@ module ApplicationHelper
       third:  adata.count { |x| x[3] == bdata[3] }
     }
 
+    p count
+
     synth  = 0
-    synth += (count[:first]  / count[:total]) * 50
-    synth += (count[:second] / count[:total]) * 25
+    synth += (count[:first]  / count[:total]) * 25
+    synth += (count[:second] / count[:total]) * 50
     synth += (count[:third]  / count[:total]) * 25
 
     adata  = answers.map(&:to_datapoint)
