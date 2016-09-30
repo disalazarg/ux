@@ -43,7 +43,7 @@ module ApplicationHelper
     util   = (3 * adata.count {|x| x[1] == 1}) + (adata.count {|x| x[1] == 2 })
     util  *= 100.0 / (adata.count * 3)
 
-    [synth, ease, util]
+    [synth, ease, util].map {|x| x.round 2 }
   end
 
   def to_angle num

@@ -15,8 +15,10 @@ class Product < ActiveRecord::Base
 
   def to_csv
     CSV.generate do |csv|
-      csv << [name]
-      csv << []
+      padding = [nil] * questions.distinct.count
+      
+      csv << [name] + padding
+      csv << [] + padding
 
       csv << ["Colegio"] + questions.distinct.map(&:statement)
       answers.last(answers.length.pred).each do |answer|
