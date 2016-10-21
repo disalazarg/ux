@@ -6,11 +6,12 @@ h3
   br
   br
 
-= form_for @answer do |f|
-  div.answer
-    = f.hidden_field :contact_id
-    = f.hidden_field :product_id
+.centered
+  = form_for @answer do |f|
+    div.answer
+      = f.hidden_field :contact_id
+      = f.hidden_field :product_id
 
-    - @poll.questions.each do |question|
-      = render question, f: f
-  = f.submit "Enviar respuesta", class: 'btn btn-primary margin-top'
+      - @poll.questions.each do |question|
+        = render question, f: f
+    = f.submit "Enviar respuesta", class: 'btn btn-primary margin-top'

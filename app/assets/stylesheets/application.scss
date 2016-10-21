@@ -195,6 +195,13 @@ footer {
     margin: 0 auto;
 }
 
+.sybology_image_results{
+  display: block;
+  margin: 0 auto;
+  width: 120%;
+  height: auto;
+}
+
 .centered{
   margin-left: 35%;
 }
@@ -530,3 +537,8 @@ div.listing{ display: inline; float: left; width: 100px; }
 input[type='checkbox'], input[type='radio'] { width: auto; margin-right: 5px; }
 .answer h4 { text-align: left; }
 .no-bullet{ list-style-type: none; }
+
+.centered{
+  max-width: 40em;
+  margin: 0 auto;
+}
