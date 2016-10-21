@@ -1,17 +1,2 @@
 .centered
-	p#notice = notice
-
-	p
-	  strong Contacto: 
-	  = full_contact @answer.contact
-	p
-	  strong Producto: 
-	  = @answer.product
-
-	p
-	  strong Alternativas:
-	  ul
-	    - @answer.picks.each do |pick|
-	      h5= pick.alternative.question
-	      li= pick.alternative
-
+	h1 ¡ Muchas gracias por sus respuestas !
