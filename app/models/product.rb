@@ -13,6 +13,10 @@ class Product < ActiveRecord::Base
 
   delegate :to_s, to: :name
 
+  def long_persisted?
+    persisted? and created_at + 10.minutes < Time.now
+  end
+
   def to_csv
     CSV.generate do |csv|
       padding = [nil] * questions.distinct.count

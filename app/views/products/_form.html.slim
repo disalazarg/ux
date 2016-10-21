@@ -2,7 +2,7 @@
   = f.error_notification
 
   .form-inputs
-    = f.input :name, label:'Nombre del Producto'
+    = f.input :name, label:'Nombre del Producto', readonly: @product.long_persisted?
     = f.input :link, label:'Link'
     = f.input :description, label:'Descripción'
 

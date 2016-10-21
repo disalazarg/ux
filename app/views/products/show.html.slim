@@ -14,5 +14,6 @@ div class="col-md-7" id="preview"
   scatter-chart(name="init_data", data=prepare_data(@product.answers.internal).to_json)
   = image_tag "simbologia.png", class: "sybology_image"
 
-
+= link_to 'Edit', edit_product_path(@product), class: 'btn btn-primary'
+| &nbsp;
 = link_to 'Back', new_product_path
