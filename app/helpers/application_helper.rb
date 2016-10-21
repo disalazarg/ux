@@ -11,7 +11,7 @@ module ApplicationHelper
       data
         .select {|x| x.last == (3 - i)}
         .map {|x| x.take 2 }
-        .map {|x| [to_angle(x.last), x.first] }
+        .map {|x| [to_angle(x.last), x.first, "hola"] }
     end
   end
 
@@ -48,5 +48,9 @@ module ApplicationHelper
 
   def to_angle num
     120 * (num - 1) + ($rand.rand 20..100)
+  end
+
+  def full_contact contact
+    "#{contact}, #{contact.school}"
   end
 end

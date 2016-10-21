@@ -7,6 +7,7 @@
     makeGraphs = (title, series) ->
       # title: title
       # balloonText: "[[category]]: [[value]] m/s"
+      balloonText: "hola soy un globo"
       bullet: 'round'
       bulletSize: 15
       lineAlpha: 0
