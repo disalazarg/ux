@@ -1,3 +1,11 @@
+h3
+  | Encuesta sobre 
+  = @answer.product.name
+  br
+  br
+  br
+  br
+
 = form_for @answer do |f|
   div.answer
     = f.hidden_field :contact_id

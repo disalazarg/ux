@@ -17,9 +17,9 @@ h3 = @product.try :name
     = link_to "Descargar", download_product_path(@product), class: "btn btn-primary" if @product
 
 .row
-  div class="col-md-4"
+  .col-md-4
 
-  div class="col-md-4"
+  .col-md-4
     = simple_form_for :results, url: results_path, method: :get do |f|
       = f.input :product,   label: 'Producto',         collection: @products,   required: false, value_method: :slug
       hr
@@ -32,3 +32,6 @@ h3 = @product.try :name
       = f.input :to,   label: "Hasta"
       
       = submit_tag "Ver" , class: 'btn btn-primary'
+
+  .col-md-4
+    = image_tag "simbologia.png", class: "sybology_image"

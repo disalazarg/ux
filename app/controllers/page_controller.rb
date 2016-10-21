@@ -19,20 +19,30 @@ class PageController < ApplicationController
       .by_district(p[:district])
       .by_statute(p[:statute])
       .by_education(p[:education])
+
+    @contacts = Contact
+      .where(school_id: @schools.ids)
+      .unpolled
+      .includes(:school)
       .order('RANDOM()')
       .limit(p[:max])
 
     @product = Product.find p[:product]
 
-    respond_with @schools
+    respond_with @contacts
   end
 
   def sendmail
     @product  = Product.find params[:poll][:product_id]
-    @contacts = Contact.where(school_id: params[:poll][:schools])
+    @contacts = Contact.where(id: params[:poll][:contacts])
+    polleds   = Array.new
+
     @contacts.map do |contact|
       UxMailer.poll(contact, @product).deliver_later
+      polleds.push Polled.new(poll_id: 1, contact_id: contact.id)
     end
+
+    bulk_insert polleds
 
     flash.now[:notice] = "Mail sent successfully!"
     redirect_to root_path
@@ -76,5 +86,14 @@ class PageController < ApplicationController
 
   def preview
     render layout: false
+  end
+
+  private
+  def bulk_insert models
+    values = models.map do |m|
+      "(#{m.poll_id}, #{m.contact_id}, NOW(), NOW())"
+    end.join(", ")
+
+    ActiveRecord::Base.connection.execute "INSERT INTO polleds(poll_id, contact_id, created_at, updated_at) VALUES " + values
   end
 end

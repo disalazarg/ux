@@ -1,7 +1,9 @@
 = form_for :poll, url: sendmail_path do |f|
   = f.hidden_field :product_id, value: @product.id
-  = f.collection_check_boxes :schools, @schools, :id, :name do |b|
+  h2 = @product.name
+
+  = f.collection_check_boxes :contacts, @contacts, :id, :full_name do |b|
     div.col-md-3.col-xs-4 = b.check_box + b.text
 
-  = link_to "Cancelar", root_path, class: 'btn btn-default margin-top'
   = f.submit 'Enviar Encuesta', class: 'btn btn-primary'
+  = link_to "Cancelar", root_path, class: 'btn btn-default margin-top'
