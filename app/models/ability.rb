@@ -28,7 +28,7 @@ class Ability
     #
     # See the wiki for details:
     # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
-    if user or Rails.env.development? then
+    if user then
       can :manage, :all
     end
 

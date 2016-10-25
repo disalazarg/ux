@@ -10,5 +10,9 @@ html
     = render 'header'
     main
       .container
+        - if alert or notice
+          .alert(class="alert-#{alert ? 'danger' : 'info'}")
+            = alert || notice
+            .close(data-dismiss="alert") &times;
         = yield
     = render 'footer'

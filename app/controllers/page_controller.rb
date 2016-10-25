@@ -3,6 +3,8 @@ class PageController < ApplicationController
   end
 
   def find
+    authorize! :find, :page
+
     @regions    = Region.all
     @districts  = District.all
     @statutes   = Statute.all
@@ -12,6 +14,8 @@ class PageController < ApplicationController
   end
 
   def search
+    authorize! :search, :page
+
     p = params[:search]
 
     @schools = School
@@ -33,6 +37,8 @@ class PageController < ApplicationController
   end
 
   def sendmail
+    authorize! :sendmail, :page
+
     @product  = Product.find params[:poll][:product_id]
     @contacts = Contact.where(id: params[:poll][:contacts])
     polleds   = Array.new
@@ -44,11 +50,12 @@ class PageController < ApplicationController
 
     bulk_insert polleds
 
-    flash.now[:notice] = "Mail sent successfully!"
-    redirect_to root_path
+    redirect_to root_path, notice: "Correos enviados con éxito"
   end
 
   def results
+    authorize! :results, :page
+
     @products   = Product.all
     @regions    = Region.all
     @districts  = District.all
@@ -78,10 +85,6 @@ class PageController < ApplicationController
         .joins(:contact)
         .where(contacts: { school_id: @schools.ids })
     end
-  end
-
-  def test
-    @answers = Answer.includes(picks: [alternative: :question]).internal
   end
 
   def preview
