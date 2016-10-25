@@ -2,7 +2,7 @@ h3 = @product.try :name
 
 .row
   .col-xs-4
-    h3 Producto
+    h3 class="results" Objetivo
     scatter-chart(name="base", data=prepare_data([@base]))
 
   .col-xs-4
@@ -10,8 +10,8 @@ h3 = @product.try :name
     gauge-chart(name="synth", data=prepare_gauge(@base, @answers))
 
   .col-xs-4
-    h3
-      | Respuestas &nbsp;
+    h3 class="results"
+      | Resultado &nbsp;
       = "(#{@answers.count})"
     scatter-chart(name="results", data=prepare_data(@answers))
     = link_to "Descargar", download_product_path(@product), class: "btn btn-primary" if @product

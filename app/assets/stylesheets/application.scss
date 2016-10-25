@@ -94,6 +94,11 @@ h3 {
   margin-bottom: 10px;
   text-align: center;
 }
+
+h3.results {
+  color: #3399ff;
+}
+
 h4 {
 
   text-align: center;
@@ -125,6 +130,12 @@ p {
     color: white;
     text-decoration: none;
   }
+}
+
+.logo-survey {
+  img{height: 100px;
+    margin-left: 35%;
+    }
 }
 
 
@@ -539,6 +550,6 @@ input[type='checkbox'], input[type='radio'] { width: auto; margin-right: 5px; }
 .no-bullet{ list-style-type: none; }
 
 .centered{
-  max-width: 40em;
+  max-width: 29em;
   margin: 0 auto;
 }
