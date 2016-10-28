@@ -24,7 +24,7 @@ class Product < ActiveRecord::Base
       csv << [name] + padding
       csv << [] + padding
 
-      csv << ["Colegio"] + questions.distinct.map(&:statement)
+      csv << ["Colegio"] + questions.order(:number).distinct.map(&:statement)
       answers.last(answers.length.pred).each do |answer|
         csv << [answer.school_name] + answer.picks.map(&:alternative).map(&:statement)
       end
