@@ -29,9 +29,9 @@ class PageController < ApplicationController
       .unpolled
       .includes(:school)
       .order('RANDOM()')
-      .limit(p[:max])
+      .limit(p[:max].to_i)
 
-    @product = Product.find p[:product]
+    @product = Product.find p[:product].to_i
 
     respond_with @contacts
   end
