@@ -1,5 +1,5 @@
 class UxMailer < ApplicationMailer
-  default from: 'Agenica de Calidad de la Educación'
+  default from: 'encuesta@agenciadecalidad.cl'
 
   def greeter(contact)
     mail to: contact.email, subject: "invitation to participate"
