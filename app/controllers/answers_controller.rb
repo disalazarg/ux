@@ -23,8 +23,12 @@ class AnswersController < ApplicationController
   def create
     @answer = Answerable.process answer_params
 
-    @answer.save
-    respond_with @answer
+    if @answer.save
+      respond_with @answer
+    else
+      @poll = Poll.first
+      render 'polls/answer', layout: 'blank'
+    end
   end
 
   def update
