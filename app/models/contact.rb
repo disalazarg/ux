@@ -14,7 +14,8 @@ class Contact < ActiveRecord::Base
   scope :unpolled, -> { joins("LEFT OUTER JOIN polleds ON polleds.contact_id = contacts.id").where("polleds.id IS NULL OR NOW() - polleds.created_at >= '3 months'::interval") }
 
   validates :email,
-    uniqueness: true
+    uniqueness: true,
+    format: { with: /@/ }
 
   def full_name
     "#{name}, #{school}"
