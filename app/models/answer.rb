@@ -10,6 +10,7 @@ class Answer < ActiveRecord::Base
   delegate :name, to: :school, prefix: true, allow_nil: true
 
   validate :all_picked
+  validate :is_unique
 
   scope :internal, -> { where(contact: nil) }
   scope :external, -> { where.not(contact: nil) }
@@ -17,6 +18,20 @@ class Answer < ActiveRecord::Base
   def all_picked
     if contact and picks.length < 5 then
       errors.add :picks, "Todas las alternativas deben ser respondidas"
+    end
+  end
+
+  def is_unique
+    answers = Answer
+      .where(product_id: product_id, contact_id: contact_id)
+      .order(:created_at)
+      .last(2)
+      .map(&:created_at)
+      .map(&:to_date)
+      .map(&:mjd)
+
+    if answers.length > 1 and answers.reduce(&:-) > 90 then
+      errors.add :contact_id, "Usted ya respondió esta encuesta"
     end
   end
 
