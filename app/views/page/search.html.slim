@@ -3,7 +3,7 @@
   h2 = @product.name
 
   = f.collection_check_boxes :contacts, @contacts, :id, :full_name do |b|
-    div.col-md-3.col-xs-4 = b.check_box + b.text
+    div.col-md-3.col-xs-4 = b.check_box({checked: true}) + b.text
 
   = f.submit 'Enviar Encuesta', class: 'btn btn-primary'
   = link_to "Cancelar", root_path, class: 'btn btn-default margin-top'
