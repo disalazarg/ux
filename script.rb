@@ -11,11 +11,11 @@ class Email
   end
 
   def to_s
-    "#{@email}, #{@date}"
+    "#{@email}, #{@date} (#{@batch})"
   end
 
-  def to_sql
-    "(('#{@email}'), '#{@date}', 2, #{@batch})"
+  def to_sql(batch=@batch)
+    "((SELECT contacts.id FROM contacts WHERE email = '#{@email}' ORDER BY id ASC LIMIT 1), #{batch})"
   end
 end
 
@@ -24,8 +24,14 @@ CSV.foreach 'mails.csv' do |row|
   list << Email.new(*row) if row.last =~ /\A\d+\z/
 end
 
-unless Batch.any?
-  list.map(&:batch).uniq.map do |i|
-    Batch.create(product_id: 2)
-  end
+batches = Array.new
+
+list.uniq(&:batch).sort_by(&:batch).map do |el|
+  batches << Batch.create(product_id: 2, created_at: el.date, updated_at: el.date)
 end
+
+values = list.map do |elem|
+  elem.to_sql(batches[elem.batch - 1].id)
+end.join(", ")
+
+ActiveRecord::Base.connection.execute "INSERT INTO batches_contacts(contact_id, batch_id) VALUES " + values
