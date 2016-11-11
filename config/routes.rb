@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'batches/index'
+
+  get 'batches/show'
+
   root 'page#index'
   get  'find'     => 'page#find'
   post 'search'   => 'page#search'
@@ -32,6 +36,8 @@ Rails.application.routes.draw do
     get 'answer' => 'polls#answer', as: :answer
   end
   resources :products do
+    resources :batches, only: [:index, :show, :create]
+    
     member do
       get 'results'
       get 'download'

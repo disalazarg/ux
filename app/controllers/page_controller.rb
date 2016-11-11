@@ -53,6 +53,10 @@ class PageController < ApplicationController
     redirect_to root_path, notice: "Correos enviados con éxito"
   end
 
+  def reminder
+    authorize! :reminder, :page
+  end
+
   def results
     authorize! :results, :page
 
