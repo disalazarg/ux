@@ -4,10 +4,12 @@ class Product < ActiveRecord::Base
   belongs_to :user
   belongs_to :answer
   has_many :answers, inverse_of: :product
+  has_many :batches, inverse_of: :product
   has_many :picks,        through: :answers
   has_many :alternatives, through: :picks
   has_many :questions,    through: :alternatives
   has_many :schools,      through: :answers
+  has_many :contacts, through: :batches
 
   friendly_id :name, use: :slugged
 

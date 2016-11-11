@@ -2,8 +2,10 @@ class Contact < ActiveRecord::Base
   extend FriendlyId
 
   belongs_to :school
+  has_many :answers, inverse_of: :contact
   has_many :polleds, inverse_of: :contact
   has_many :polls, through: :polleds
+  has_and_belongs_to_many :batches
 
   friendly_id :name, use: :slugged
 

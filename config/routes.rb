@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   get  'test'     => 'page#test'
   get  'help'     => 'page#help'
   get  'results'  => 'page#results'
+  get  'reminder' => 'page#reminder'
+  post 'reminder' => 'page#remind'
   get  'preview' => 'page#preview'
 
   devise_for :users
@@ -32,6 +34,10 @@ Rails.application.routes.draw do
     get 'answer' => 'polls#answer', as: :answer
   end
   resources :products do
+    resources :batches, only: [:index, :show] do
+      post 'reminder', on: :member
+    end
+    
     member do
       get 'results'
       get 'download'

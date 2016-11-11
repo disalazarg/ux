@@ -20,7 +20,7 @@ class PollsController < ApplicationController
   def answer    
     @data   = UXJWT.decode params[:token]
     @poll   = Poll.includes(questions: :alternatives).friendly.find params[:poll_id]
-    @answer = Answer.find_by(@data) || Answer.new @data
+    @answer = Answer.find_by(@data) || Answer.new(@data)
 
     if @answer.persisted? then
       redirect_to @answer

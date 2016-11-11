@@ -41,16 +41,27 @@ class PageController < ApplicationController
 
     @product  = Product.find params[:poll][:product_id]
     @contacts = Contact.where(id: params[:poll][:contacts])
-    polleds   = Array.new
 
     @contacts.map do |contact|
       UxMailer.poll(contact, @product).deliver_later
-      polleds.push Polled.new(poll_id: 1, contact_id: contact.id)
     end
 
-    bulk_insert polleds
+    batch = Batch.create(product: @product)
+
+    bulk_insert_polleds 1,     @contacts
+    bulk_insert_batches batch, @contacts
 
     redirect_to root_path, notice: "Correos enviados con éxito"
+  end
+
+  def reminder
+    authorize! :reminder, :page
+    @products = Product.all
+  end
+
+  def remind
+    @product = Product.friendly.find params[:reminder][:product]
+    redirect_to product_batches_path(@product)
   end
 
   def results
@@ -92,11 +103,19 @@ class PageController < ApplicationController
   end
 
   private
-  def bulk_insert models
-    values = models.map do |m|
-      "(#{m.poll_id}, #{m.contact_id}, NOW(), NOW())"
+  def bulk_insert_polleds poll_id, contacts
+    values = contacts.map do |contact|
+      "(#{poll_id}, #{contact.id}, NOW(), NOW())"
     end.join(", ")
 
     ActiveRecord::Base.connection.execute "INSERT INTO polleds(poll_id, contact_id, created_at, updated_at) VALUES " + values
+  end
+
+  def bulk_insert_batches batch, contacts
+    values = contacts.map do |contact|
+      "(#{batch.id}, #{contact.id})"
+    end.join(", ")
+
+    ActiveRecord::Base.connection.execute "INSERT INTO batches_contacts(batch_id, contact_id) VALUES " + values
   end
 end
