@@ -1,10 +1,9 @@
-h1 Batches#index
-p Find me in app/views/batches/index.html.slim
+h1 Enviar Reminder
 
 ul
   - @batches.each do |batch|
     li
-      .col-md-6
+      .col-md-7
         = batch.product
-      .col-md-4
+      .col-md-5
         = link_to (l batch.created_at, format: :short), product_batch_path(batch.product, batch)
