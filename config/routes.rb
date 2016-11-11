@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   get  'test'     => 'page#test'
   get  'help'     => 'page#help'
   get  'results'  => 'page#results'
+  get  'reminder' => 'page#reminder'
+  post 'reminder' => 'page#remind'
   get  'preview' => 'page#preview'
 
   devise_for :users

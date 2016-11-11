@@ -56,6 +56,12 @@ class PageController < ApplicationController
 
   def reminder
     authorize! :reminder, :page
+    @products = Product.all
+  end
+
+  def remind
+    @product = Product.friendly.find params[:reminder][:product]
+    redirect_to product_batches_path(@product)
   end
 
   def results
