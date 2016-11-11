@@ -1,7 +1,7 @@
 h1 Batches#show
 p Find me in app/views/batches/show.html.slim
 
-= form_for :batch, url: reminder_product_batch_path(@batch, @product), method: :post do |f|
+= form_for :batch, url: reminder_product_batch_path(@product, @batch), method: :post do |f|
   = f.collection_check_boxes :contacts, @contacts, :id, :full_name do |b|
     div.col-md-3.col-xs-4 = b.check_box({checked: true}) + b.text
   = f.submit "Enviar recordatorio", class: "btn btn-primary"
