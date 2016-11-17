@@ -34,7 +34,7 @@ class Product < ActiveRecord::Base
           .sort_by(&:question_id)
           .map(&:statement)
 
-        csv << [answer.school_name] + entries + [I18n.l answer.created_at, format: :short]
+        csv << [answer.school_name] + entries + [(I18n.l answer.created_at, format: :short)]
       end
     end
   end
