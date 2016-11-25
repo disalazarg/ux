@@ -9,6 +9,7 @@ class Answer < ActiveRecord::Base
 
   delegate :name, to: :school, prefix: true, allow_nil: true
   delegate :rbd,  to: :school, prefix: true, allow_nil: true
+  delegate :to_row, to: :school, prefix: true, allow_nil: true
 
   validate :all_picked
   validate :is_unique
