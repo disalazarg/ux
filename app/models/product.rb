@@ -26,7 +26,7 @@ class Product < ActiveRecord::Base
       csv << [name] + padding
       csv << [] + padding
 
-      csv << School.to_title_row + questions.order(:number).distinct.map(&:statement) + ["Date"]
+      csv << School.to_title_row + ["Contact"] + questions.order(:number).distinct.map(&:statement) + ["Date"]
       answers.includes(school: [:region, :statute, :education], picks: [:alternative]).last([answers.length.pred, 0].max).each do |answer|
         entries = answer
           .picks
@@ -34,7 +34,7 @@ class Product < ActiveRecord::Base
           .sort_by(&:question_id)
           .map(&:statement)
 
-        csv << (answer.school_to_row || []) + entries + [(I18n.l answer.created_at, format: :short)]
+        csv << (answer.school_to_row || []) + [answer.contact_email] + entries + [(I18n.l answer.created_at, format: :short)]
       end
     end
   end
