@@ -26,7 +26,7 @@ class Product < ActiveRecord::Base
       csv << [name] + padding
       csv << [] + padding
 
-      csv << ["Colegio"] + questions.order(:number).distinct.map(&:statement) + ["Date"]
+      csv << ["Colegio", "RBD"] + questions.order(:number).distinct.map(&:statement) + ["Date"]
       answers.last(answers.length.pred).each do |answer|
         entries = answer
           .picks
@@ -34,7 +34,7 @@ class Product < ActiveRecord::Base
           .sort_by(&:question_id)
           .map(&:statement)
 
-        csv << [answer.school_name] + entries + [(I18n.l answer.created_at, format: :short)]
+        csv << [answer.school_name, answer.school_rbd] + entries + [(I18n.l answer.created_at, format: :short)]
       end
     end
   end
