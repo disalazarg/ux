@@ -13,7 +13,7 @@ class Contact < ActiveRecord::Base
   delegate :name, to: :school, prefix: true, allow_nil: true
 
   scope :polled, -> { joins(:polleds).where("NOW() - polleds.created_at < '3 months'::interval") }
-  scope :unpolled, -> { joins("LEFT OUTER JOIN polleds ON polleds.contact_id = contacts.id").where("polleds.id IS NULL OR NOW() - polleds.created_at >= '3 months'::interval") }
+  scope :unpolled, -> { joins("LEFT OUTER JOIN polleds ON polleds.contact_id = contacts.id").where("polleds.id IS NULL OR NOW() - polleds.created_at >= '12 months'::interval") }
 
   validates :email,
     uniqueness: true,
